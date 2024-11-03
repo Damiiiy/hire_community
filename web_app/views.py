@@ -12,3 +12,9 @@ def index(request):
 def login_view(request):
 
     return render(request, 'login.html')
+
+
+def sign_up(request):
+
+
+    return render(request, 'signup.html')
