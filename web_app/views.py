@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from web_app.models import *
+from django.contrib import messages
+from web_app.forms import *
+
 
 
 # Create your views here.
@@ -43,8 +46,67 @@ def login_view(request):
 
 
 
+def User_sign_up(request):
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            
+            # Save form data to session and proceed to Step 2
+            request.session['user_form_data'] = form.cleaned_data
+            return redirect('profile')
+        else:
+            print(form.cleaned_data)
+            print(form.errors)
+            messages.error(request, form.errors)
+    else:
+        form = UserForm() 
+    return render(request, 'signup.html', {'form': form})
 
-def sign_up(request):
+def Profile_sign_up(request):
+    user_form_data = request.session.get('user_form_data')
+    if not user_form_data:
+        # return redirect('signup')  # Redirect to Step 1 if no data in session
+        return render(request, 'signup.html', {'form': form, 'error': 'False'})
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Create User and Profile instances
+            user = CustomUser(
+                username=user_form_data['username'],
+                first_name=user_form_data['first_name'],
+                last_name=user_form_data['last_name'],
+                email=user_form_data['email'],
+                password=user_form_data['password']
+            )
+            user.save()
+            
+          
+            # Manually create and save the Profile instance
+            profile = Profile(
+                user=user,
+                user_type=form.cleaned_data['user_type'],
+                bio=form.cleaned_data['bio'],
+                location=form.cleaned_data['location'],
+                profile_picture=form.cleaned_data['profile_picture'],
+                website=form.cleaned_data['website']
+            )
+            profile.save()
+
+            # Log in the user and clear session data
+            # login(request, user)
+            request.session.pop('user_form_data', None)  # Clear session after registration
+            messages.success(request, "Registration successful!")
+            return redirect('home')
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = ProfileForm() 
+    return render(request, 'signup2.html', {'form': form})
 
 
-    return render(request, 'signup.html')
+
+# def sign_up(request):
+
+
+#     return render(request, 'signup.html')

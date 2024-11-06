@@ -4,4 +4,13 @@ from django.contrib import admin
 from .models import *
 
 
-admin.site.register(Users)
+admin.site.register(Profile)
+admin.site.register(Skill)
+admin.site.register(Job)
+admin.site.register(Application)
+admin.site.register(Message)
+admin.site.register(Review)
+admin.site.register(Notification)
+admin.site.register(CustomUser)
+
+
