@@ -18,13 +18,9 @@
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">    
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-
-
-
-
   </head>
   
-  <body>
+<body>
 
     <!-- Header Section Start -->
     <header id="home" class="hero-area"> 
@@ -51,7 +47,7 @@
                     Home
                   </a>
                 </li>
-                <li class="nav-item dropdown">
+                {% comment %} <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Pages
                   </a>
@@ -62,10 +58,10 @@
                     <li><a class="dropdown-item" href="resume.html">Resume Page</a></li>
                     <li><a class="dropdown-item" href="privacy-policy.html">Privacy Policy</a></li>
                     <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
-                    {% comment %} <li><a class="dropdown-item" href="pricing.html">Pricing Tables</a></li> {% endcomment %}
+                    {% comment %} <li><a class="dropdown-item" href="pricing.html">Pricing Tables</a></li> 
                     <li><a class="dropdown-item" href="contact.html">Contact</a></li>
                   </ul>
-                </li>
+                </li> {% endcomment %}
 
                 {% comment %} <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,7 +76,7 @@
                   </ul>
                 </li> {% endcomment %}
 
-                <li class="nav-item dropdown">
+                {% comment %} <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Employers
                   </a>
@@ -90,7 +86,8 @@
                     <li><a class="dropdown-item" href="manage-applications.html">Manage Applications</a></li>
                     <li><a class="dropdown-item" href="browse-resumes.html">Browse Resumes</a></li>
                   </ul>
-                </li>
+                </li> {% endcomment %}
+
                 {% comment %} <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Blog 
@@ -102,11 +99,14 @@
                     <li><a class="dropdown-item" href="single-post.html">Blog Single Post</a></li>
                   </ul>
                 </li> {% endcomment %}
-                <li class="nav-item">
+
+                {% comment %} <li class="nav-item">
                   <a class="nav-link" href="contact.html">
                     Contact
                   </a>
-                </li>
+                </li> {% endcomment %}
+
+
                 <li class="nav-item">
                   {% if 'user' in request.session %}
                       <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
@@ -117,7 +117,7 @@
                 </li>
                 <li class="button-group">
                   {% if 'user' in request.session %}
-                      <a href="post-job.html" title="Profile" ><img src="media/{{profile.profile_picture}}" class="rounded-circle" style="height: 50px; width: 50px" ></a>
+                      <a href="{% url 'profile' %}" title="Profile" ><img src="media/{{profile.profile_picture}}" class="rounded-circle" style="height: 50px; width: 50px" ></a>
                   {% else %}
                        <a href="{% url 'signup' %}" class="button btn btn-common">Get Started</a>
                   
@@ -294,67 +294,77 @@
     <!-- Listings Section End -->
 
     <!-- Browse jobs Section Start -->
-    <div id="browse-jobs" class="section bg-gray">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-12 col-sm-12">
-            <div class="text-wrapper">
-              <div>
-                <h3>7,000+ Browse Jobs</h3>
-                <p>Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 600,000 companies worldwide. The right job is out there.</p>
-                <a class="btn btn-common" href="#">Search jobs</a>
+    {% if 'user' in request.session %}
+
+    {% else %}
+      <div id="browse-jobs" class="section bg-gray">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="text-wrapper">
+                <div>
+                  <h3>7,000+ Browse Jobs</h3>
+                  <p>Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 600,000 companies worldwide. The right job is out there.</p>
+                  <a class="btn btn-common" href="#">Search jobs</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="img-thumb">
+                <img class="img-fluid" style="mix-blend-mode: multiply;" src="{% static 'img/pngtree.png' %}" alt="">
               </div>
             </div>
           </div>
-           <div class="col-lg-6 col-md-12 col-sm-12">
-            <div class="img-thumb">
-              <img class="img-fluid" style="mix-blend-mode: multiply;" src="{% static 'img/pngtree.png' %}" alt="">
-            </div>
-          </div>
         </div>
       </div>
-    </div>
+    {% endif %}
+    
     <!-- Browse jobs Section End -->   
-
-    <!-- How It Work Section Start -->
-    <section class="how-it-works section">
-      <div class="container">
-        <div class="section-header">  
-          <h2 class="section-title">How It Works?</h2>
-          {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ellentesque dignissim quam et <br> metus effici turac fringilla lorem facilisis.</p>       {% endcomment %}
+    {% if 'user' in request.session %}
+      
+    {% else %}
+        <!-- How It Work Section Start -->
+      <section class="how-it-works section">
+        <div class="container">
+          <div class="section-header">  
+            <h2 class="section-title">How It Works?</h2>
+            {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ellentesque dignissim quam et <br> metus effici turac fringilla lorem facilisis.</p>       {% endcomment %}
+          </div>
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+              <div class="work-process">
+                <span class="process-icon">
+                  <i class="lni-user"></i>
+                </span>
+                <h4>Create an Account</h4>
+                <p>Post a job to tell us about your project. We'll quickly match you with the right freelancers find place best.</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+              <div class="work-process step-2">
+                <span class="process-icon">
+                  <i class="lni-search"></i>
+                </span>
+                <h4>Search Jobs</h4>
+                <p>Post a job to tell us about your project. We'll quickly match you with the right freelancers find place best.</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+              <div class="work-process step-3">
+                <span class="process-icon">
+                  <i class="lni-cup"></i>
+                </span>
+                <h4>Apply</h4>
+                <p>Post a job to tell us about your project. We'll quickly match you with the right freelancers find place best.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="work-process">
-              <span class="process-icon">
-                <i class="lni-user"></i>
-              </span>
-              <h4>Create an Account</h4>
-              <p>Post a job to tell us about your project. We'll quickly match you with the right freelancers find place best.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="work-process step-2">
-              <span class="process-icon">
-                <i class="lni-search"></i>
-              </span>
-              <h4>Search Jobs</h4>
-              <p>Post a job to tell us about your project. We'll quickly match you with the right freelancers find place best.</p>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-            <div class="work-process step-3">
-              <span class="process-icon">
-                <i class="lni-cup"></i>
-              </span>
-              <h4>Apply</h4>
-              <p>Post a job to tell us about your project. We'll quickly match you with the right freelancers find place best.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- How It Work Section End -->
+      </section>
+      <!-- How It Work Section End -->
+        
+    {% endif %}
+    
 
     <!-- Latest Section Start -->
     <section id="latest-jobs" class="section bg-gray">
@@ -473,61 +483,64 @@
       </div>
     </section>
     <!-- Latest Section End -->
+    {% if 'user' in request.session %}
 
-    <!-- Testimonial Section Start -->
-    <section id="testimonial" class="section">
-      <div class="container">
-        <div class="section-header">  
-          <h2 class="section-title">Clients Review</h2>
-          {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ellentesque dignissim quam et <br> metus effici turac fringilla lorem facilisis.</p>       {% endcomment %}
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-            <div id="testimonials" class="touch-slider owl-carousel">
-              <div class="item">
-                <div class="testimonial-item">
-                  <div class="author">
-                    <div class="img-thumb">
-                      <img src="{% static 'img/testimonial/img1.png' %}" alt="">
+    {% else %}
+         <!-- Testimonial Section Start -->
+      <section id="testimonial" class="section">
+        <div class="container">
+          <div class="section-header">  
+            <h2 class="section-title">Clients Review</h2>
+            {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ellentesque dignissim quam et <br> metus effici turac fringilla lorem facilisis.</p>       {% endcomment %}
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+              <div id="testimonials" class="touch-slider owl-carousel">
+                <div class="item">
+                  <div class="testimonial-item">
+                    <div class="author">
+                      <div class="img-thumb">
+                        <img src="{% static 'img/testimonial/img1.png' %}" alt="">
+                      </div>
                     </div>
-                  </div>
-                  <div class="content-inner">
-                    <p class="description">"This platform has been incredibly effective in helping us find not only candidates with the right skills but also those who align with our culture. The level of support and insight provided has been top-notch."</p>
-                    <div class="author-info">
-                      <h2><a href="#">Jessica</a></h2>
-                      <span>Senior Accountant</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="item">
-                <div class="testimonial-item">
-                  <div class="author">
-                    <div class="img-thumb">
-                    <img src="{% static 'img/testimonial/img2.png' %}" alt="">
-                    </div>
-                  </div>
-                  <div class="content-inner">
-                    <p class="description">"We rely on [Community Name] as our primary resource for finding top talent. The network is extensive, and the candidates are consistently of high quality. It's a valuable partnership for us."</p>
-                    <div class="author-info">
-                      <h2><a href="#">John Doe</a></h2>
-                      <span>Project Menager</span>
+                    <div class="content-inner">
+                      <p class="description">"This platform has been incredibly effective in helping us find not only candidates with the right skills but also those who align with our culture. The level of support and insight provided has been top-notch."</p>
+                      <div class="author-info">
+                        <h2><a href="#">Jessica</a></h2>
+                        <span>Senior Accountant</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="item">
-                <div class="testimonial-item">
-                  <div class="author">
-                    <div class="img-thumb">
-                    <img src="{% static 'img/testimonial/img3.png' %}" alt="">
+                <div class="item">
+                  <div class="testimonial-item">
+                    <div class="author">
+                      <div class="img-thumb">
+                      <img src="{% static 'img/testimonial/img2.png' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="content-inner">
+                      <p class="description">"We rely on [Community Name] as our primary resource for finding top talent. The network is extensive, and the candidates are consistently of high quality. It's a valuable partnership for us."</p>
+                      <div class="author-info">
+                        <h2><a href="#">John Doe</a></h2>
+                        <span>Project Menager</span>
+                      </div>
                     </div>
                   </div>
-                  <div class="content-inner">
-                    <p class="description">"We trust [Community Name] to connect us with talented, motivated professionals who are ready to hit the ground running. Every candidate we've hired through this community has been an asset to our organization."</p>
-                    <div class="author-info">
-                      <h2><a href="#">Helen</a></h2>
-                      <span>Engineer</span>
+                </div>
+                <div class="item">
+                  <div class="testimonial-item">
+                    <div class="author">
+                      <div class="img-thumb">
+                      <img src="{% static 'img/testimonial/img3.png' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="content-inner">
+                      <p class="description">"We trust [Community Name] to connect us with talented, motivated professionals who are ready to hit the ground running. Every candidate we've hired through this community has been an asset to our organization."</p>
+                      <div class="author-info">
+                        <h2><a href="#">Helen</a></h2>
+                        <span>Engineer</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -535,9 +548,10 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- Testimonial Section End -->  
+      </section>
+      <!-- Testimonial Section End -->  
+   {% endif %}
+   
 
     <!-- Start Pricing Table Section -->
 

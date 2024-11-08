@@ -30,9 +30,9 @@ def profile_view(request):
 
         # get profile information
         profile = Profile.objects.get(user=users) 
-
-
-    return render(request, 'profile.html', {'user': users, 'profile':profile})
+        return render(request, 'profile.html', {'user': users, 'profile':profile})
+    else:
+        return redirect('login')
                   
 def login_view(request):
     if 'user' in request.session:
