@@ -132,37 +132,37 @@ class Notification(models.Model):
 
 
 
+########    resume data     ################################
 
 
-# class job_categories(models.Model):
-#     name = models.CharField(max_length=255, blank=True, null=True)
+class ResumeProfile(models.Model):
+    user= models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='resume_profiles', default=None)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    profession_title = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    web = models.URLField(blank=True, null=True)
+    per_hour = models.IntegerField(blank=True, null=True)
+    age = models.IntegerField()
 
-#     def __str__(self) -> str:
-#         return self.name
+class Education(models.Model):
+    profile = models.ForeignKey(ResumeProfile, on_delete=models.CASCADE, related_name='educations')
+    degree = models.CharField(max_length=100)
+    field_of_study = models.CharField(max_length=100)
+    school = models.CharField(max_length=100)
+    start_year = models.IntegerField()
+    end_year = models.IntegerField()
+    description = models.TextField(blank=True)
 
-# class Creator_user(models.Model):
-#     first_name = models.CharField(max_length=255, blank=True, null=True)
-#     last_name = models.CharField(max_length=255, blank=True, null=True)
-#     username = models.CharField(max_length=255, blank=True, null=True, unique=True)
-#     password = models.CharField(max_length=255, blank=True, null=True)
+class Experience(models.Model):
+    profile = models.ForeignKey(ResumeProfile, on_delete=models.CASCADE, related_name='experiences')
+    company_name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
+    work_start_year = models.IntegerField()
+    work_end_year = models.IntegerField()
+    work_description = models.TextField(blank=True)
 
-#     def __str__(self) -> str:
-#         return self.username
-
-# class Jobs(models.Model):
-#     title = models.CharField(max_length=255, blank=True, null=True)
-#     description = models.CharField(max_length=255, blank=True, null=True)
-#     applicatants = models.ForeignKey(Creator_user, on_delete=models.CASCADE)
-    
-#     pay_ammount = models.IntegerField(null=True, blank=True)
-#     date = models.DateField(null=True, blank=True, default=timezone.now)
-
-
-
-
-
-# class Normal_user(models.Model):
-#     first_name = models.CharField(max_length=255, blank=True, null=True)
-#     last_name = models.CharField(max_length=255, blank=True, null=True)
-#     username = models.CharField(max_length=255, blank=True, null=True, unique=True)
-#     password = models.CharField(max_length=255, blank=True, null=True)
+class ResumeSkill(models.Model):
+    profile = models.ForeignKey(ResumeProfile, on_delete=models.CASCADE, related_name='skills')
+    skill_name = models.CharField(max_length=100)
+    proficiency = models.IntegerField()

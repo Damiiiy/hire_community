@@ -13,4 +13,14 @@ admin.site.register(Review)
 admin.site.register(Notification)
 admin.site.register(CustomUser)
 
+############################
+
+admin.site.register(ResumeProfile)
+admin.site.register(Education)
+admin.site.register(Experience)
+admin.site.register(ResumeSkill)
+
+
+
+
 

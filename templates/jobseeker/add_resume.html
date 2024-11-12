@@ -38,7 +38,7 @@
                 <span class="lni-menu"></span>
                 <span class="lni-menu"></span>
               </button>
-              <a href="" class="navbar-brand">[COMMUNITY NAME]</a>
+              <a href="index.html" class="navbar-brand">[COMMUNITY NAME]</a>
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
               <ul class="navbar-nav mr-auto w-100 justify-content-end">
@@ -98,7 +98,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> 
     <!-- Page Header End --> 
 
     <!-- Start Content -->
@@ -109,71 +109,67 @@
             <div class="right-sideabr">
               <h4>Manage Account</h4>
               <ul class="list-item">
-                <li><a class="active" href="{% url 'profile' %}">My Resume</a></li>
+                <li><a href="{% url 'profile' %}">My Resume</a></li>
                 {% comment %} <li><a href="bookmarked.html">Bookmarked Jobs</a></li> {% endcomment %}
                 {% comment %} <li><a href="notifications.html">Notifications <span class="notinumber">2</span></a></li> {% endcomment %}
                 <li><a href="{% url 'manage_application' %}">Manage Applications</a></li>
-                <li><a href="{% url 'resume_basic' %}">Add/Edit Resume</a></li>
+                <li><a class="active" href="{% url 'resume_basic' %}">Add/Edit Resume</a></li>
                 <li><a href="change-password.html">Change Password</a></li>
               </ul>
             </div>
           </div>
+
+          <!--form for resume-->
+
           <div class="col-lg-8 col-md-8 col-xs-12">
-            <div class="inner-box my-resume">
-              <div class="author-resume">
-                <div class="thumb">
-                  <img src="media/{{profile.profile_picture}}" alt="">
-                </div>
-                <div class="author-info">
-                  <h3>{{ resume.name }}</h3>
-                  <p class="sub-title">{{ resume.profession_title}}</p>
-                  <p><span class="address"><i class="lni-map-marker"></i>{{resume.location}}</span></p>
-                  <p><span class="email"><i class="lni-envelope"></i> {{resume.email}}</p>
+            <div class="add-resume box">
+                {%if message %}
+                    <p class="text-danger">{{message}} </p>
 
-                  <div class="social-link">  
-                    <a href="#" class="Twitter"><i class="lni-twitter-filled"></i></a>
-                    <a href="#" class="facebook"><i class="lni-facebook-filled"></i></a>
-                    <a href="#" class="google"><i class="lni-google-plus"></i></a>
-                    <a href="#" class="linkedin"><i class="lni-linkedin-fill"></i></a>
-                  </div>
-                </div>                  
-              </div>
-              <div class="about-me item">
-                <h3>About Me</h3>
-                  <p>{{profile.bio}}</p>
-              </div>
-              <div class="work-experence item">
-                <h3>Work Experience</h3>
-                {% for c in work_xp %}
-                  <h4>{{ c.title }}</h4>
-                  <h5>{{ c.company_name }}</h5>
-                  <span class="date">{{ c.work_start_year }} - {{ c.work_end_year }}</span>
-                  <p>{{ c.work_description }}</p>
-                  <br>
-                {% endfor %}
-              </div>
-
-              <div class="education item">
-                <h3>Education</h3>
-                {% for c in edu_xp %}
-                  <h4>{{c.school}}</h4>
-                  <p>{{c.degree}} of {{ c.field_of_study}}</p>
-                  <span class="date">{{c.start_year}}-{{c.end_year}}</span>
-                  <br>
-               
-                {% endfor %}
-               
-              </div>
-
-              <div class="skills item">
-                <h3>Skills</h3>
-                {% for c in skills %}
-                  <h4>{{c.skill_name}} - {{c.proficiency}}%</h4>
-                {% endfor %}
-              </div>
-
-
-
+                {% endif %}
+                <form class="form-ad" method='POST'>
+                    {% csrf_token %}
+                        <h3>Basic information</h3>
+                        <div class="form-group">
+                            <label class="control-label">Name</label>
+                            {% comment %} <input type="text" name="name" class="form-control" placeholder="Name" value="{{user.first_name}} {{user.last_name}}">  {% endcomment %}
+                            {{form.name}}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            {% comment %} <input type="text" name="email" class="form-control" placeholder="Your@domain.com" > {% endcomment %}
+                            {{form.email}}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Profession Title</label>
+                            {{form.profession_title}}
+                            {% comment %} <input type="text" name="profession_title" class="form-control"  placeholder="Headline (e.g. Front-end developer)"> {% endcomment %}
+                        </div> 
+                        <div class="form-group">
+                            <label class="control-label">Location</label>
+                            {{form.location}}
+                            {% comment %} <input type="text" name="location" class="form-control"  placeholder="Location, e.g"> {% endcomment %}
+                        </div>  
+                        <div class="form-group">
+                            <label class="control-label">Web</label>
+                            {{form.web}}
+                            {% comment %} <input type="text" name="web" class="form-control"  placeholder="Website address"> {% endcomment %}
+                        </div> 
+                        <div class="form-group">
+                            <label class="control-label">Pre Hour</label>
+                            {{form.per_hour}}
+                            {% comment %} <input type="text" name="per_hour" class="form-control"  placeholder="Salary, e.g. 85"> {% endcomment %}
+                        </div> 
+                        <div class="form-group">
+                            <label class="control-label">Age</label>
+                            {{form.age}}
+                            {% comment %} /<input type="text" name="age" class="form-control"  placeholder="Years old"> {% endcomment %}
+                        </div>
+                        <br><br>
+                        <hr class="bg-dark">
+                  <input type="submit" class="btn btn-common" value="Next page"> 
+                </form>
+             
             </div>
           </div>
         </div>
@@ -181,6 +177,60 @@
     </div>
     <!-- End Content -->
 
+    <!-- End Content -->
+
+    <!--Js script Start-->
+
+    <script>
+        // Function to add new education entry
+        function addEducation() {
+          const educationSection = document.getElementById('education-section');
+          const newEducationEntry = educationSection.cloneNode(true);  // Clone the existing education section
+          clearInputValues(newEducationEntry);  // Clear the input values for the new entry
+          educationSection.parentNode.insertBefore(newEducationEntry, educationSection.nextSibling);  // Insert below the original section
+        }
+      
+        // Function to add new experience entry
+        function addExperience() {
+          const experienceSection = document.getElementById('experience-section');
+          const newExperienceEntry = experienceSection.cloneNode(true);  // Clone the existing experience section
+          clearInputValues(newExperienceEntry);  // Clear the input values for the new entry
+          experienceSection.parentNode.insertBefore(newExperienceEntry, experienceSection.nextSibling);  // Insert below the original section
+        }
+      
+        // Function to add new skill entry
+        function addSkill() {
+          const skillsSection = document.getElementById('skills-section');
+          const newSkillEntry = skillsSection.cloneNode(true);  // Clone the existing skills section
+          clearInputValues(newSkillEntry);  // Clear the input values for the new entry
+          skillsSection.parentNode.insertBefore(newSkillEntry, skillsSection.nextSibling);  // Insert below the original section
+        }
+      
+        // Function to remove a specific entry
+        function removeEntry(link) {
+            link.closest('.form-group').remove();  // Remove the closest form-group containing this link
+          }
+      
+        // Function to clear all input values in a newly cloned section
+        function clearInputValues(section) {
+          const inputs = section.querySelectorAll('input, textarea');
+          inputs.forEach(input => input.value = '');  // Set all input values to empty
+        }
+      
+        // Attach click events for "Add New" buttons
+        document.querySelector('.btn-added[data-type="education"]').addEventListener('click', addEducation);
+        document.querySelector('.btn-added[data-type="experience"]').addEventListener('click', addExperience);
+        document.querySelector('.btn-added[data-type="skills"]').addEventListener('click', addSkill);
+      
+        // Attach click events for "Delete This" buttons
+        document.querySelectorAll('.btn-delete').forEach(button => {
+          button.addEventListener('click', function(e) {
+            e.preventDefault();
+            removeEntry(this);
+          });
+        });
+      </script>
+      
     <!-- Footer Section Start -->
     <footer>
       <!-- Footer Area Start -->

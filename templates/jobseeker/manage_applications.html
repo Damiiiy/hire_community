@@ -38,7 +38,7 @@
                 <span class="lni-menu"></span>
                 <span class="lni-menu"></span>
               </button>
-              <a href="" class="navbar-brand">[COMMUNITY NAME]</a>
+              <a href="index.html" class="navbar-brand">[COMMUNITY NAME]</a>
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
               <ul class="navbar-nav mr-auto w-100 justify-content-end">
@@ -109,76 +109,157 @@
             <div class="right-sideabr">
               <h4>Manage Account</h4>
               <ul class="list-item">
-                <li><a class="active" href="{% url 'profile' %}">My Resume</a></li>
+                <li><a href="{% url 'profile' %}">My Resume</a></li>
                 {% comment %} <li><a href="bookmarked.html">Bookmarked Jobs</a></li> {% endcomment %}
                 {% comment %} <li><a href="notifications.html">Notifications <span class="notinumber">2</span></a></li> {% endcomment %}
-                <li><a href="{% url 'manage_application' %}">Manage Applications</a></li>
+                <li><a class="active" href="{% url 'manage_application' %}">Manage Applications</a></li>
                 <li><a href="{% url 'resume_basic' %}">Add/Edit Resume</a></li>
                 <li><a href="change-password.html">Change Password</a></li>
               </ul>
             </div>
           </div>
-          <div class="col-lg-8 col-md-8 col-xs-12">
-            <div class="inner-box my-resume">
-              <div class="author-resume">
-                <div class="thumb">
-                  <img src="media/{{profile.profile_picture}}" alt="">
-                </div>
-                <div class="author-info">
-                  <h3>{{ resume.name }}</h3>
-                  <p class="sub-title">{{ resume.profession_title}}</p>
-                  <p><span class="address"><i class="lni-map-marker"></i>{{resume.location}}</span></p>
-                  <p><span class="email"><i class="lni-envelope"></i> {{resume.email}}</p>
-
-                  <div class="social-link">  
-                    <a href="#" class="Twitter"><i class="lni-twitter-filled"></i></a>
-                    <a href="#" class="facebook"><i class="lni-facebook-filled"></i></a>
-                    <a href="#" class="google"><i class="lni-google-plus"></i></a>
-                    <a href="#" class="linkedin"><i class="lni-linkedin-fill"></i></a>
+          <div class="col-lg-8 col-md-12 col-xs-12">
+            <div class="job-alerts-item">
+              <h3 class="alerts-title">Manage applications</h3>
+              <div class="applications-content">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="thums">
+                      <img src="assets/img/jobs/img-1.jpg" alt="">
+                    </div>
+                    <h3>Web Designer Meeded</h3>
+                    <span>Quick Studio</span>
                   </div>
-                </div>                  
+                   <div class="col-md-3">
+                    <p><span class="full-time">Full-Time</span></p>
+                  </div>
+                  <div class="col-md-3">
+                    <p>Nov 14th, 2017</p>
+                  </div>                   
+                  <div class="col-md-2">
+                    <p>Rejected</p>
+                  </div>
+                </div>
               </div>
-              <div class="about-me item">
-                <h3>About Me</h3>
-                  <p>{{profile.bio}}</p>
+              <div class="applications-content">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="thums">
+                      <img src="assets/img/jobs/img-1.jpg" alt="">
+                    </div>
+                    <h3>Front-end developer needed</h3>
+                    <span>Quick Studio</span>
+                  </div>
+                   <div class="col-md-3">
+                    <p><span class="full-time">Full-Time</span></p>
+                  </div>
+                  <div class="col-md-3">
+                    <p>Nov 14th, 2017</p>
+                  </div>                   
+                  <div class="col-md-2">
+                    <p>Processed</p>
+                  </div>
+                </div>
               </div>
-              <div class="work-experence item">
-                <h3>Work Experience</h3>
-                {% for c in work_xp %}
-                  <h4>{{ c.title }}</h4>
-                  <h5>{{ c.company_name }}</h5>
-                  <span class="date">{{ c.work_start_year }} - {{ c.work_end_year }}</span>
-                  <p>{{ c.work_description }}</p>
-                  <br>
-                {% endfor %}
+              <div class="applications-content">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="thums">
+                      <img src="assets/img/jobs/img-1.jpg" alt="">
+                    </div>
+                    <h3>We're looking for an Art Director</h3>
+                    <span>Quick Studio</span>
+                  </div>
+                   <div class="col-md-3">
+                    <p><span class="part-time">Part-Time</span></p>
+                  </div>
+                  <div class="col-md-3">
+                    <p>Nov 14th, 2017</p>
+                  </div>                   
+                  <div class="col-md-2">
+                    <p>Rejected</p>
+                  </div>
+                </div>
               </div>
-
-              <div class="education item">
-                <h3>Education</h3>
-                {% for c in edu_xp %}
-                  <h4>{{c.school}}</h4>
-                  <p>{{c.degree}} of {{ c.field_of_study}}</p>
-                  <span class="date">{{c.start_year}}-{{c.end_year}}</span>
-                  <br>
-               
-                {% endfor %}
-               
+              <div class="applications-content">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="thums">
+                      <img src="assets/img/jobs/img-1.jpg" alt="">
+                    </div>
+                    <h3>Web designer needed</h3>
+                    <span>Quick Studio</span>
+                  </div>
+                   <div class="col-md-3">
+                    <p><span class="full-time">Full-Time</span></p>
+                  </div>
+                  <div class="col-md-3">
+                    <p>Nov 14th, 2017</p>
+                  </div>                   
+                  <div class="col-md-2">
+                    <p>Approved</p>
+                  </div>
+                </div>
               </div>
-
-              <div class="skills item">
-                <h3>Skills</h3>
-                {% for c in skills %}
-                  <h4>{{c.skill_name}} - {{c.proficiency}}%</h4>
-                {% endfor %}
+              <div class="applications-content">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="thums">
+                      <img src="assets/img/jobs/img-1.jpg" alt="">
+                    </div>
+                    <h3>Looking for a Project Leader</h3>
+                    <span>Quick Studio</span>
+                  </div>
+                   <div class="col-md-3">
+                    <p><span class="full-time">Full-Time</span></p>
+                  </div>
+                  <div class="col-md-3">
+                    <p>Nov 14th, 2017</p>
+                  </div>                   
+                  <div class="col-md-2">
+                    <p>Rejected</p>
+                  </div>
+                </div>
               </div>
-
-
-
+              <div class="applications-content">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="thums">
+                      <img src="assets/img/jobs/img-1.jpg" alt="">
+                    </div>
+                    <h3>We're hiring an fullstack designer</h3>
+                    <span>Quick Studio</span>
+                  </div>
+                   <div class="col-md-3">
+                    <p><span class="part-time">Part-Time</span></p>
+                  </div>
+                  <div class="col-md-3">
+                    <p>Nov 14th, 2017</p>
+                  </div>                   
+                  <div class="col-md-2">
+                    <p>Rejected</p>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <!-- Start Pagination -->
+              <ul class="pagination">              
+                <li class="active"><a href="#" class="btn-prev" ><i class="lni-angle-left"></i> prev</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li class="active"><a href="#" class="btn-next">Next <i class="lni-angle-right"></i></a></li>
+              </ul>
+              <!-- End Pagination -->
             </div>
           </div>
         </div>
       </div>      
     </div>
+    <!-- End Content -->
+
     <!-- End Content -->
 
     <!-- Footer Section Start -->

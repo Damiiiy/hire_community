@@ -38,7 +38,7 @@
                 <span class="lni-menu"></span>
                 <span class="lni-menu"></span>
               </button>
-              <a href="" class="navbar-brand">[COMMUNITY NAME]</a>
+              <a href="index.html" class="navbar-brand">[COMMUNITY NAME]</a>
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
               <ul class="navbar-nav mr-auto w-100 justify-content-end">
@@ -98,7 +98,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> 
     <!-- Page Header End --> 
 
     <!-- Start Content -->
@@ -109,71 +109,70 @@
             <div class="right-sideabr">
               <h4>Manage Account</h4>
               <ul class="list-item">
-                <li><a class="active" href="{% url 'profile' %}">My Resume</a></li>
+                <li><a href="{% url 'profile' %}">My Resume</a></li>
                 {% comment %} <li><a href="bookmarked.html">Bookmarked Jobs</a></li> {% endcomment %}
                 {% comment %} <li><a href="notifications.html">Notifications <span class="notinumber">2</span></a></li> {% endcomment %}
                 <li><a href="{% url 'manage_application' %}">Manage Applications</a></li>
-                <li><a href="{% url 'resume_basic' %}">Add/Edit Resume</a></li>
+                <li><a class="active" href="{% url 'resume_basic' %}">Add/Edit Resume</a></li>
                 <li><a href="change-password.html">Change Password</a></li>
               </ul>
             </div>
           </div>
+
+          <!--form for resume-->
+
           <div class="col-lg-8 col-md-8 col-xs-12">
-            <div class="inner-box my-resume">
-              <div class="author-resume">
-                <div class="thumb">
-                  <img src="media/{{profile.profile_picture}}" alt="">
-                </div>
-                <div class="author-info">
-                  <h3>{{ resume.name }}</h3>
-                  <p class="sub-title">{{ resume.profession_title}}</p>
-                  <p><span class="address"><i class="lni-map-marker"></i>{{resume.location}}</span></p>
-                  <p><span class="email"><i class="lni-envelope"></i> {{resume.email}}</p>
+            <div class="add-resume box">
+                {%if message %}
+                    <p class="text-danger">{{message}} </p>
 
-                  <div class="social-link">  
-                    <a href="#" class="Twitter"><i class="lni-twitter-filled"></i></a>
-                    <a href="#" class="facebook"><i class="lni-facebook-filled"></i></a>
-                    <a href="#" class="google"><i class="lni-google-plus"></i></a>
-                    <a href="#" class="linkedin"><i class="lni-linkedin-fill"></i></a>
-                  </div>
-                </div>                  
-              </div>
-              <div class="about-me item">
-                <h3>About Me</h3>
-                  <p>{{profile.bio}}</p>
-              </div>
-              <div class="work-experence item">
-                <h3>Work Experience</h3>
-                {% for c in work_xp %}
-                  <h4>{{ c.title }}</h4>
-                  <h5>{{ c.company_name }}</h5>
-                  <span class="date">{{ c.work_start_year }} - {{ c.work_end_year }}</span>
-                  <p>{{ c.work_description }}</p>
-                  <br>
-                {% endfor %}
-              </div>
+                {% endif %}
+                <form class="form-ad" method='POST'>
+                    {% csrf_token %}
 
-              <div class="education item">
-                <h3>Education</h3>
-                {% for c in edu_xp %}
-                  <h4>{{c.school}}</h4>
-                  <p>{{c.degree}} of {{ c.field_of_study}}</p>
-                  <span class="date">{{c.start_year}}-{{c.end_year}}</span>
-                  <br>
-               
-                {% endfor %}
-               
-              </div>
+                <!-- Start of Eduction section-->
 
-              <div class="skills item">
-                <h3>Skills</h3>
-                {% for c in skills %}
-                  <h4>{{c.skill_name}} - {{c.proficiency}}%</h4>
-                {% endfor %}
-              </div>
-
-
-
+                        <h3>Education Information</h3>
+                        <div id="education-section">
+                            <div class="form-group">
+                                <label class="control-label">Degree</label>
+                                {% comment %} <input type="text" name="degree" class="form-control"  placeholder="Degree, e.g. Bachelor"> {% endcomment %}
+                                {{e_form.degree}}
+                            </div>  
+                            <div class="form-group">
+                                <label class="control-label">Field of Study</label>
+                                {{e_form.field_of_study}}
+                                {% comment %} <input type="text" name="field_of_study" class="form-control"  placeholder="Major, e.g Computer Science"> {% endcomment %}
+                            </div> 
+                            <div class="form-group">
+                                <label class="control-label">School</label>
+                                {{e_form.school}}
+                                {% comment %} <input type="text" name="school" class="form-control" placeholder="School name, e.g. Massachusetts Institute of Technology"> {% endcomment %}
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label">From</label>
+                                        {{e_form.start_year}}
+                                        {% comment %} <input type="text" name="start_year" class="form-control"  placeholder="e.g 2014"> {% endcomment %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="control-label">To</label>
+                                        {{e_form.end_year}}
+                                        {% comment %} <input type="text" name="end_year" class="form-control"  placeholder="e.g 2020"> {% endcomment %}
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label class="control-label">Description</label>  
+                                {{e_form.description}}
+                                {% comment %} <textarea class="form-control" name="description" rows="7"></textarea> {% endcomment %}
+                            </div>                  
+                           
+                <!-- End of Eduction section-->
+                  <input type="submit" class="btn btn-common" value="Next page"> 
+                </form>
+             
             </div>
           </div>
         </div>
@@ -181,6 +180,11 @@
     </div>
     <!-- End Content -->
 
+    <!-- End Content -->
+
+    <!--Js script Start-->
+
+    
     <!-- Footer Section Start -->
     <footer>
       <!-- Footer Area Start -->
