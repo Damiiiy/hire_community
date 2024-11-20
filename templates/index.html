@@ -7,7 +7,7 @@
     <meta name="keywords" content="Bootstrap, Landing page, Template, Registration, Landing">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="UIdeck">
-    <title>[COMMUNITY NAME]</title>
+    <title>Sanyataya</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -37,7 +37,7 @@
                 <span class="lni-menu"></span>
               </button>
               {% comment %} <a href="index.html" class="navbar-brand"><img src="{% static 'img/logo.png' %}" alt=""></a> {% endcomment %}
-              <a href="index.html" class="navbar-brand">[COMMUNITY NAME]</a>
+              <a href="#" class="navbar-brand">Sanyataya</a>
 
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
@@ -47,66 +47,6 @@
                     Home
                   </a>
                 </li>
-                {% comment %} <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Pages
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="about.html">About</a></li>
-                    <li><a class="dropdown-item" href="job-page.html">Job Page</a></li>
-                    <li><a class="dropdown-item" href="job-details.html">Job Details</a></li>
-                    <li><a class="dropdown-item" href="resume.html">Resume Page</a></li>
-                    <li><a class="dropdown-item" href="privacy-policy.html">Privacy Policy</a></li>
-                    <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
-                    {% comment %} <li><a class="dropdown-item" href="pricing.html">Pricing Tables</a></li> 
-                    <li><a class="dropdown-item" href="contact.html">Contact</a></li>
-                  </ul>
-                </li> {% endcomment %}
-
-                {% comment %} <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Candidates
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="browse-jobs.html">Browse Jobs</a></li>
-                    <li><a class="dropdown-item" href="browse-categories.html">Browse Categories</a></li>
-                    <li><a class="dropdown-item" href="add-resume.html">Add Resume</a></li>
-                    <li><a class="dropdown-item" href="manage-resumes.html">Manage Resumes</a></li>
-                    <li><a class="dropdown-item" href="job-alerts.html">Job Alerts</a></li>
-                  </ul>
-                </li> {% endcomment %}
-
-                {% comment %} <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Employers
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="post-job.html">Add Job</a></li>
-                    <li><a class="dropdown-item" href="manage-jobs.html">Manage Jobs</a></li>
-                    <li><a class="dropdown-item" href="manage-applications.html">Manage Applications</a></li>
-                    <li><a class="dropdown-item" href="browse-resumes.html">Browse Resumes</a></li>
-                  </ul>
-                </li> {% endcomment %}
-
-                {% comment %} <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Blog 
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="blog.html">Blog - Right Sidebar</a></li>
-                    <li><a class="dropdown-item" href="blog-left-sidebar.html">Blog - Left Sidebar</a></li>
-                    <li><a class="dropdown-item" href="blog-full-width.html"> Blog full width</a></li>
-                    <li><a class="dropdown-item" href="single-post.html">Blog Single Post</a></li>
-                  </ul>
-                </li> {% endcomment %}
-
-                {% comment %} <li class="nav-item">
-                  <a class="nav-link" href="contact.html">
-                    Contact
-                  </a>
-                </li> {% endcomment %}
-
-
                 <li class="nav-item">
                   {% if 'user' in request.session %}
                       <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
@@ -136,7 +76,7 @@
         <div class="row space-100 justify-content-center">
           <div class="col-lg-10 col-md-12 col-xs-12">
             <div class="contents">
-              <h2 class="head-title">Welcome to [Community Name]</h2>
+              <h2 class="head-title">Welcome to Sanyataya</h2>
               <p>A vibrant job network dedicated to helping professionals at all career stages <br> connect with meaningful opportunities. Whether you're exploring new paths, advancing in your field, <br> or looking to grow your professional network, this is the place to be</p>
               <br>
                 <form>
@@ -282,16 +222,6 @@
     </section>
     <!-- Category Section End -->  
 
-    <!-- Listings Section Start -->
-    {% comment %} <section id="job-listings" class="section">
-      <div class="container text-center wow  wow fadeInUp">
-        <h1 class="section-title">You Using Free Lite Version :(</h1>
-<h6>Purchase Full Version to Get All Pages, Features, Docs and Support!</h6></br>
-<a href="https://rebrand.ly/jobx-gg" target="_blank" rel="nofollow" class="btn btn-common btn-lg"><span class="lni-pointer-right"></span> Purchase Now!</a>
-      </div>
-    </section> {% endcomment %}
-    
-    <!-- Listings Section End -->
 
     <!-- Browse jobs Section Start -->
     {% if 'user' in request.session %}
@@ -520,7 +450,7 @@
                       </div>
                     </div>
                     <div class="content-inner">
-                      <p class="description">"We rely on [Community Name] as our primary resource for finding top talent. The network is extensive, and the candidates are consistently of high quality. It's a valuable partnership for us."</p>
+                      <p class="description">"We rely on Sanyataya as our primary resource for finding top talent. The network is extensive, and the candidates are consistently of high quality. It's a valuable partnership for us."</p>
                       <div class="author-info">
                         <h2><a href="#">John Doe</a></h2>
                         <span>Project Menager</span>
@@ -557,98 +487,7 @@
 
     <!-- End Pricing Table Section -->
 
-    <!-- Blog Section -->
-    {% comment %} <section id="blog" class="section">
-      <!-- Container Starts -->
-      <div class="container">
-        <div class="section-header">  
-          <h2 class="section-title">Blog Post</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ellentesque dignissim quam et <br> metus effici turac fringilla lorem facilisis.</p>      
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-xs-12 blog-item">
-            <!-- Blog Item Starts -->
-            <div class="blog-item-wrapper">
-              <div class="blog-item-img">
-                <a href="single-post.html">
-                  <img src="{% static 'img/blog/img1.jpg' %}" alt="">
-                </a>              
-              </div>
-              <div class="blog-item-text"> 
-                <h3><a href="single-post.html">Tips to write an impressive resume online for beginner</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad vitae.</p>
-              </div>
-              <a class="readmore" href="#">Read More</a>
-            </div>
-            <!-- Blog Item Wrapper Ends-->
-          </div>
-
-          <div class="col-lg-4 col-md-6 col-xs-12 blog-item">
-            <!-- Blog Item Starts -->
-            <div class="blog-item-wrapper">
-              <div class="blog-item-img">
-                <a href="single-post.html">
-                  <img src="{% static 'img/blog/img2.jpg' %}" alt="">
-                </a>              
-              </div>
-              <div class="blog-item-text"> 
-                <h3><a href="single-post.html">Let's explore 5 cool new features in JobBoard theme</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad vitae.</p>
-              </div>
-              <a class="readmore" href="#">Read More</a>
-            </div>
-            <!-- Blog Item Wrapper Ends-->
-          </div>
-
-          <div class="col-lg-4 col-md-6 col-xs-12 blog-item">
-            <!-- Blog Item Starts -->
-            <div class="blog-item-wrapper">
-              <div class="blog-item-img">
-                <a href="single-post.html">
-                  <img src="{% static 'img/blog/img3.jpg' %}" alt="">
-                </a>              
-              </div>
-              <div class="blog-item-text"> 
-                <h3><a href="single-post.html">How to convince recruiters and get your dream job</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium asperiores ad vitae.</p>
-              </div>
-              <a class="readmore" href="#">Read More</a>
-            </div>
-            <!-- Blog Item Wrapper Ends-->
-          </div>
-        </div>
-      </div>
-    </section>
-    <br><br><br><br><br><br><br> {% endcomment %}
-    <!-- blog Section End -->
-
-    {% comment %} <!-- download Section Start -->
-    <section id="download" class="section bg-gray">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-8 col-xs-12">
-            <div class="download-wrapper">
-              <div>
-                <div class="download-text">
-                  <h4>Download Our Best Apps</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ellentesque dignissim quam et metus effici turac fringilla lorem facilisis, Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="app-button">
-                <a href="#" class="btn btn-border"><i class="lni-apple"></i>Download <br> <span>From App Store</span></a>
-                <a href="#" class="btn btn-common btn-effect"><i class="lni-android"></i> Download <br> <span>From Play Store</span></a>
-              </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-4 col-xs-12">            
-            <div class="download-thumb">
-              <img class="img-fluid" src="assets/img/app.png" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> {% endcomment %}
-    <!-- download Section Start -->
+  
 
     <!-- Footer Section Start -->
     <footer>
@@ -659,7 +498,7 @@
             <div class="col-lg-3 col-md-3 col-xs-12">
               <div class="widget">
                 {% comment %} <div class="footer-logo"><img src="{% static 'img/logo-footer.png' %}" alt=""></div> {% endcomment %}
-                <h3 class="block-title" style="color: white;">[Community Name]</h3>
+                <h3 class="block-title" style="color: white;">Sanyataya</h3>
 
                 <div class="textwidget">
                   <p>Sed consequat sapien faus quam bibendum convallis quis in nulla. Pellentesque volutpat odio eget diam cursus semper.</p>
@@ -712,7 +551,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="site-info text-center">
-                <p> [Community Name]</p>
+                <p> Sanyataya</p>
               </div>     
             </div>
           </div>

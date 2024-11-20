@@ -31,13 +31,21 @@ def profile_view(request):
         user = request.session['user']
         users = CustomUser.objects.get(username=user)
 
+
         # get profile information
-        profile = Profile.objects.get(user=users) 
-        resume = ResumeProfile.objects.get(user=users)
-        work_xp = Experience.objects.filter(profile=resume)
-        edu_xp = Education.objects.filter(profile=resume)
-        skils = ResumeSkill.objects.filter(profile=resume)
-        return render(request, 'profile.html', {'user': users, 'profile':profile,'resume':resume, 'work_xp':work_xp, 'edu_xp':edu_xp, 'skills':skils})
+        profile = Profile.objects.get(user=users)
+        if profile.user_type == "job_seeker":
+            resume = ResumeProfile.objects.get(user=users)
+            work_xp = Experience.objects.filter(profile=resume)
+            edu_xp = Education.objects.filter(profile=resume)
+            skils = ResumeSkill.objects.filter(profile=resume)
+            return render(request, 'profile.html', {'user': users, 'profile':profile,'resume':resume, 'work_xp':work_xp, 'edu_xp':edu_xp, 'skills':skils})
+        
+        if profile.user_type == "employer":
+            jobs = Job.objects.filter(employer=users)
+            form = JobForm()
+            return render(request, 'profile.html', {'user': users, 'profile':profile, 'form':form})
+        return render(request, 'profile.html', {'user': users, 'profile':profile})
     else:
         return redirect('login')
     
@@ -327,6 +335,12 @@ def resume_skill_info(request):
 
 
 
+def add_job(request):
+    if 'user' not in request.session:
+        return redirect('index')
+    
+    if request.method == 'POST':
+        form = JobForm(request.POST)
 
 
 
@@ -336,109 +350,6 @@ def resume_skill_info(request):
 
 
 
-
-
-
-
-
-
-
-# def add_resume(request):
-#     if 'user' in request.session:
-#         user = request.session['user']
-#         users = CustomUser.objects.get(username=user)
-#         profile = Profile.objects.get(user=users)
-
-#         profile_form = ResumeProfileForm()
-#         education_form = EducationForm()
-#         experience_form = ExperienceForm()
-#         skill_form = SkillForm()
-
-#         if request.method == 'POST':
-#             profile_form = ResumeProfileForm(request.POST)
-#             e_form = EducationForm(request.POST)
-#             w_form = ExperienceForm(request.POST)
-#             s_form = SkillForm(request.POST)
-
-#             # if profile_form.is_valid() and e_form.is_valid() and w_form.is_valid() and s_form.is_valid():
-#             #     # Save the Profile
-#             #     profile_form.cleaned_data['user'] = users.id
-#             #     profile = profile_form.save()
-
-#             #     # Save each form in the formsets, linking them to the Profile
-#             #     if education_form.cleaned_data:  # Save only if the form has data
-#             #         education = education_form.save(commit=False)
-#             #         education.profile = profile
-#             #         education.save()
-
-#             #     for experience_form in experience_formset:
-#             #         if experience_form.cleaned_data:
-#             #             experience = experience_form.save(commit=False)
-#             #             experience.profile = profile
-#             #             experience.save()
-
-#             #     for skill_form in skill_formset:
-#             #         if skill_form.cleaned_data:
-#             #             skill = skill_form.save(commit=False)
-#             #             skill.profile = profile
-#             #             skill.save()
-#             # Validate and save the profile form (it will either update or create the profile)
-#             if profile_form.is_valid():
-#                 profile_instance = profile_form.save(commit=False)
-#                 profile_instance.user = users  # Ensure user is set
-#                 profile_instance.save()
-
-#                 # Validate and save the other forms only if they contain data
-#                 if e_form.is_valid() and education_form.has_changed():
-#                     education_instance = education_form.save(commit=False)
-#                     education_instance.profile = profile_instance
-#                     education_instance.save()
-
-#                 if w_form.is_valid() and experience_form.has_changed():
-#                     experience_instance = experience_form.save(commit=False)
-#                     experience_instance.profile = profile_instance
-#                     experience_instance.save()
-
-#                 if s_form.is_valid() and skill_form.has_changed():
-#                     skill_instance = skill_form.save(commit=False)
-#                     skill_instance.profile = profile_instance
-#                     skill_instance.save()
-
-
-#                 return redirect('profile')  # Redirect to a success page or profile page
-#             else:
-#                 return render(request, 'jobseeker/add_resume.html', {'message': "All field required",
-#                                                                      'user': users, 
-#                                                                      'profile':profile,
-#                                                                      's_form': skill_form,
-#                                                                      'form':profile_form,
-#                                                                      'e_form': education_form, 
-#                                                                      'w_form': experience_form,})
-
-#         else:
-#             # Initial GET request, render empty forms
-#             profile_form = ResumeProfileForm()
-#             education_form = EducationForm()
-#             experience_form = ExperienceForm()
-#             skill_form = SkillForm()
-
-#         # return render(request, , {
-#         #     'profile_form': profile_form,
-#         #     'education_formset': education_formset,
-#         #     'experience_formset': experience_formset,
-#         #     'skill_formset': skill_formset,
-#         # })
-
-
-
-#         return render(request, 'jobseeker/add_resume.html', {'user': users, 
-#                                                              'profile':profile, 
-#                                                              'form':profile_form,
-#                                                              's_form': skill_form,
-#                                                              'e_form': education_form, 
-#                                                              'w_form': experience_form} )
-#     else:
-#         return redirect('index')
 
 
 

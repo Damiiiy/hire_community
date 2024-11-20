@@ -40,20 +40,36 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
-
+class Category(models.Model):
+    name = models.CharField(max_length=255, unique=True)
 
 class Job(models.Model):
     """
     Job postings created by employers.
     """
+    JOB_CATEGORY_CHOICES = [
+        ('technolgy', 'Technology'),
+        ('design', 'Art/Design'),
+        ('marketing', 'Sale/Marketing'),
+        ('finance', 'Finance'),
+        ('education', 'Education/Training'),
+        ('healthcare', 'Healthcare'),
+        ('science', 'Science'),
+        ('food_services', 'Food Services')
+    ]
+
+    category = models.CharField(max_length=50, choices=JOB_CATEGORY_CHOICES, blank=True, null=True,
+        help_text="Select the category that best describes the job."
+    )
+
     title = models.CharField(max_length=255)
     description = models.TextField()
+    company_name = models.CharField(max_length=255)
     employer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='jobs')
     location = models.CharField(max_length=255, blank=True, null=True)
-    salary = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    is_remote = models.BooleanField(default=False)
-    skills_required = models.ManyToManyField(Skill, blank=True)
+    salary = models.IntegerField(blank=True, null=True)
+    created_at = models.DateField(auto_now_add=True)
+    skills_required = models.CharField(max_length=255, blank=True, null=True)
     job_type = models.CharField(
         max_length=50,
         choices=[('full_time', 'Full Time'), ('part_time', 'Part Time'), ('contract', 'Contract')]

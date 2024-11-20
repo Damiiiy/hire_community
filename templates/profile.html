@@ -7,7 +7,7 @@
      <meta name="keywords" content="Bootstrap, Landing page, Template, Registration, Landing">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
      <meta name="author" content="UIdeck">
-     <title>[COMMUNITY NAME]</title>
+     <title>Sanyataya - {{profile.user_type}} Profile</title>
  
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -38,17 +38,16 @@
                 <span class="lni-menu"></span>
                 <span class="lni-menu"></span>
               </button>
-              <a href="" class="navbar-brand">[COMMUNITY NAME]</a>
+              <a href="{% url 'index' %}" class="navbar-brand">Sanyataya</a>
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
               <ul class="navbar-nav mr-auto w-100 justify-content-end">
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html">
+                  <a class="nav-link" href="{% url 'index' %}">
                     Home
                   </a>
                 </li>
-                
-               
+      
                 <li class="button-group">
                   <a href="{% url 'logout' %}" class="button btn btn-common">Sign Out</a>
                 </li>
@@ -56,7 +55,8 @@
             </div>
           </div>
         </div>
-        <div class="mobile-menu" data-logo="assets/img/logo-mobile.png"></div>
+        <div class="mobile-menu" >
+        </div>
       </nav>
       <!-- Navbar End -->            
     </header>
@@ -105,74 +105,165 @@
     <div class="section">
       <div class="container">        
         <div class="row">
+          {% if profile.user_type == 'job_seeker' %}
+            <div class="col-lg-4 col-md-4 col-xs-12">
+              <div class="right-sideabr">
+                <h4>Manage Account</h4>
+                <ul class="list-item">
+                  <li><a class="active" href="{% url 'profile' %}">My Resume</a></li>
+                  {% comment %} <li><a href="bookmarked.html">Bookmarked Jobs</a></li> {% endcomment %}
+                  {% comment %} <li><a href="notifications.html">Notifications <span class="notinumber">2</span></a></li> {% endcomment %}
+                  <li><a href="{% url 'manage_application' %}">Manage Applications</a></li>
+                  <li><a href="{% url 'resume_basic' %}">Add/Edit Resume</a></li>
+                  {% comment %} <li><a href="change-password.html">Change Password</a></li> {% endcomment %}
+                </ul>
+              </div>
+            
+          
+          {% else %}
           <div class="col-lg-4 col-md-4 col-xs-12">
             <div class="right-sideabr">
               <h4>Manage Account</h4>
               <ul class="list-item">
-                <li><a class="active" href="{% url 'profile' %}">My Resume</a></li>
+                <li><a class="active" href="{% url 'profile' %}">Add Job</a></li>
                 {% comment %} <li><a href="bookmarked.html">Bookmarked Jobs</a></li> {% endcomment %}
                 {% comment %} <li><a href="notifications.html">Notifications <span class="notinumber">2</span></a></li> {% endcomment %}
-                <li><a href="{% url 'manage_application' %}">Manage Applications</a></li>
-                <li><a href="{% url 'resume_basic' %}">Add/Edit Resume</a></li>
-                <li><a href="change-password.html">Change Password</a></li>
+                <li><a href="{% url 'manage_application' %}">My Jobs</a></li>
+                {% comment %} <li><a href="{% url 'resume_basic' %}">Add/Edit Resume</a></li> {% endcomment %}
+                {% comment %} <li><a href="change-password.html">Change Password</a></li> {% endcomment %}
               </ul>
             </div>
+          {% endif %}
           </div>
           <div class="col-lg-8 col-md-8 col-xs-12">
             <div class="inner-box my-resume">
-              <div class="author-resume">
-                <div class="thumb">
-                  <img src="media/{{profile.profile_picture}}" alt="">
-                </div>
-                <div class="author-info">
-                  <h3>{{ resume.name }}</h3>
-                  <p class="sub-title">{{ resume.profession_title}}</p>
-                  <p><span class="address"><i class="lni-map-marker"></i>{{resume.location}}</span></p>
-                  <p><span class="email"><i class="lni-envelope"></i> {{resume.email}}</p>
 
-                  <div class="social-link">  
-                    <a href="#" class="Twitter"><i class="lni-twitter-filled"></i></a>
-                    <a href="#" class="facebook"><i class="lni-facebook-filled"></i></a>
-                    <a href="#" class="google"><i class="lni-google-plus"></i></a>
-                    <a href="#" class="linkedin"><i class="lni-linkedin-fill"></i></a>
+              {% if profile.user_type == 'job_seeker' %} 
+
+                  <div class="author-resume">
+                    <div class="thumb">
+                      <img src="media/{{profile.profile_picture}}" alt="">
+                    </div>
+                    <div class="author-info">
+                      <h3>{{ resume.name }}</h3>
+                      <p class="sub-title">{{ resume.profession_title}}</p>
+                      <p><span class="address"><i class="lni-map-marker"></i>{{resume.location}}</span></p>
+                      <p><span class="email"><i class="lni-envelope"></i> {{resume.email}}</p>
+
+                      <div class="social-link">  
+                        <a href="#" class="Twitter"><i class="lni-twitter-filled"></i></a>
+                        <a href="#" class="facebook"><i class="lni-facebook-filled"></i></a>
+                        <a href="#" class="google"><i class="lni-google-plus"></i></a>
+                        <a href="#" class="linkedin"><i class="lni-linkedin-fill"></i></a>
+                      </div>
+                    </div>                  
                   </div>
-                </div>                  
-              </div>
-              <div class="about-me item">
-                <h3>About Me</h3>
-                  <p>{{profile.bio}}</p>
-              </div>
-              <div class="work-experence item">
-                <h3>Work Experience</h3>
-                {% for c in work_xp %}
-                  <h4>{{ c.title }}</h4>
-                  <h5>{{ c.company_name }}</h5>
-                  <span class="date">{{ c.work_start_year }} - {{ c.work_end_year }}</span>
-                  <p>{{ c.work_description }}</p>
-                  <br>
-                {% endfor %}
-              </div>
+                  <div class="about-me item">
+                    <h3>About Me</h3>
+                      <p>{{profile.bio}}</p>
+                  </div>
+                  <div class="work-experence item">
+                    <h3>Work Experience</h3>
+                    {% for c in work_xp %}
+                      <h4>{{ c.title }}</h4>
+                      <h5>{{ c.company_name }}</h5>
+                      <span class="date">{{ c.work_start_year }} - {{ c.work_end_year }}</span>
+                      <p>{{ c.work_description }}</p>
+                      <br>
+                    {% endfor %}
+                  </div>
 
-              <div class="education item">
-                <h3>Education</h3>
-                {% for c in edu_xp %}
-                  <h4>{{c.school}}</h4>
-                  <p>{{c.degree}} of {{ c.field_of_study}}</p>
-                  <span class="date">{{c.start_year}}-{{c.end_year}}</span>
-                  <br>
-               
-                {% endfor %}
-               
+                  <div class="education item">
+                    <h3>Education</h3>
+                    {% for c in edu_xp %}
+                      <h4>{{c.school}}</h4>
+                      <p>{{c.degree}} of {{ c.field_of_study}}</p>
+                      <span class="date">{{c.start_year}}-{{c.end_year}}</span>
+                      <br>
+                  
+                    {% endfor %}
+                  
+                  </div>
+
+                  <div class="skills item">
+                    <h3>Skills</h3>
+                    {% for c in skills %}
+                      <h4>{{c.skill_name}} - {{c.proficiency}}%</h4>
+                    {% endfor %}
+                  </div>
+                  
+              {% else %} 
+                  <div class="post-job box">
+                    <h3 class="job-title">Post a new Job</h3>
+                    <form class="form-ad">
+                      <div class="form-group">
+                        <label class="control-label">Job Title</label>
+                        <input type="text" class="form-control" placeholder="Write job title" >
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label">Company</label>
+                        <input type="text" class="form-control" placeholder="Write company name">
+                      </div> 
+                      <div class="form-group">
+                        <label class="control-label">Location <span>(optional)</span></label>
+                        <input type="text" class="form-control" placeholder="e.g.London">
+                      </div> 
+                      <div class="form-group">
+                        <label class="control-label">Category</label>
+                        <div class="search-category-container">
+                          <label class="styled-select">
+                            <select class="dropdown-product selectpicker">
+                              <option>All Categories</option>
+                              <option>Finance</option>
+                              <option>IT & Engineering</option>
+                              <option>Education/Training</option>
+                              <option>Art/Design</option>
+                              <option>Sale/Markting</option>
+                              <option>Healthcare</option>
+                              <option>Science</option>                              
+                              <option>Food Services</option>
+                            </select>
+                          </label>
+                        </div>
+                      </div> 
+                      <div class="form-group">
+                        <label class="control-label">Job Tags <span>(optional)</span></label>
+                        <input type="text" class="form-control" placeholder="e.g.PHP,Social Media,Management">
+                        <p class="note">Comma separate tags, such as required skills or technologies, for this job.</p>
+                      </div>  
+                      <section id="editor">
+                        <div class="form-group">
+                        <label for="comment">Description</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                      </div>
+                      </section>
+                      {% comment %} <div class="form-group">
+                        <label class="control-label">Application email / URL</label>
+                        <input type="text" class="form-control" placeholder="Enter an email address or website URL">
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label">Closing Date <span>(optional)</span></label>
+                        <input type="text" class="form-control" placeholder="yyyy-mm-dd" >
+                      </div>  {% endcomment %}
+                      <div class="form-group">
+                        <label class="control-label">Job Type</label>
+                        <input type="text" class="form-control" placeholder="Enter the name of the company">
+                      </div> 
+                      
+                      <div class="custom-file mb-3">
+                        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                        <label class="custom-file-label form-control" for="validatedCustomFile">Choose file...</label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                      </div>
+                      <a href="#" class="btn btn-common">Submit your job</a>
+                    </form>
+                  </div>
+                </div>
               </div>
+                  
 
-              <div class="skills item">
-                <h3>Skills</h3>
-                {% for c in skills %}
-                  <h4>{{c.skill_name}} - {{c.proficiency}}%</h4>
-                {% endfor %}
-              </div>
-
-
+              {% endif %}
+              
 
             </div>
           </div>
@@ -191,7 +282,6 @@
               <div class="widget">
                 <div class="footer-logo"><img src="assets/img/logo-footer.png" alt=""></div>
                 <div class="textwidget">
-                  <p>Sed consequat sapien faus quam bibendum convallis quis in nulla. Pellentesque volutpat odio eget diam cursus semper.</p>
                 </div>
               </div>
             </div>
@@ -243,7 +333,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="site-info text-center">
-                <p> [Community Name]</p>
+                <p> Sanyataya</p>
               </div>     
             </div>
           </div>
