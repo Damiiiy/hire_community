@@ -42,8 +42,35 @@ def profile_view(request):
             return render(request, 'profile.html', {'user': users, 'profile':profile,'resume':resume, 'work_xp':work_xp, 'edu_xp':edu_xp, 'skills':skils})
         
         if profile.user_type == "employer":
-            jobs = Job.objects.filter(employer=users)
             form = JobForm()
+            if request.method == 'POST':
+                form = JobForm(request.POST, request.FILES)
+
+                if form.is_valid():
+                    try:
+                        new_job = Job(
+                            category=form.cleaned_data['category'],
+                            title=form.cleaned_data['title'],
+                            description=form.cleaned_data['description'],
+                            employer=users,
+                            location=form.cleaned_data['location'],
+                            salary=form.cleaned_data['salary'],
+                            skills_required=form.cleaned_data['skills_required'],
+                            job_type=form.cleaned_data['job_type'],
+                            cover_img=form.cleaned_data['cover_img']
+                        )
+
+                        # new_job.save()
+
+                        return redirect('profile')
+                    except Exception:
+                        messages.error(request, form.errors)
+
+                else:
+                    messages.error(request, form.errors)
+
+            
+
             return render(request, 'profile.html', {'user': users, 'profile':profile, 'form':form})
         return render(request, 'profile.html', {'user': users, 'profile':profile})
     else:
@@ -339,9 +366,46 @@ def add_job(request):
     if 'user' not in request.session:
         return redirect('index')
     
-    if request.method == 'POST':
-        form = JobForm(request.POST)
+    user = request.session['user']
+    users = CustomUser.objects.get(username=user)
+    profile = Profile.objects.get(user=users)
 
+    jobform = JobForm()
+
+    if request.method == 'POST':
+        form = JobForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            try:
+                new_job = Job(
+                    category=form.cleaned_data['category'],
+                    title=form.cleaned_data['title'],
+                    description=form.cleaned_data['description'],
+                    employer=users,
+                    location=form.cleaned_data['location'],
+                    salary=form.cleaned_data['salary'],
+                    skills_required=form.cleaned_data['skills_required'],
+                    job_type=form.cleaned_data['job_type'],
+                    cover_img=form.cleaned_data['cover_img']
+                )
+
+                new_job.save()
+
+                return redirect('profile')
+            except Exception:
+                messages.error(request, form.errors)
+
+        else:
+            messages.error(request, form.errors)
+
+    else:
+        form = JobForm()
+
+    return render(request, 'profile.html', {
+            'form': jobform,
+            'user': users,
+            'profile': profile
+        })                    
 
 
 

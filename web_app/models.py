@@ -74,6 +74,7 @@ class Job(models.Model):
         max_length=50,
         choices=[('full_time', 'Full Time'), ('part_time', 'Part Time'), ('contract', 'Contract')]
     )
+    cover_img = models.ImageField(upload_to='cover_images/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.title} at {self.employer.user.username}"

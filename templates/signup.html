@@ -1,23 +1,7 @@
 {% load static %}
 <html lang="en">
   <head>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const userTypeField = document.getElementById("id_user_type");
-          const websiteField = document.querySelector(".field-website");
-
-          function toggleWebsiteField() {
-              if (userTypeField.value === 'employer') {
-                  websiteField.style.display = 'block';
-              } else {
-                  websiteField.style.display = 'none';
-              }
-          }
-
-          userTypeField.addEventListener("change", toggleWebsiteField);
-          toggleWebsiteField();  // Initial toggle based on default selection
-      });
-  </script>
+   
   <style>
       .field-website { display: none; }  /* Hide the website field by default */
   </style>

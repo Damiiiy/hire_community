@@ -203,46 +203,46 @@ class SkillForm(forms.ModelForm):
         model = ResumeSkill
         fields = ['skill_name', 'proficiency']
 
-# Create formsets for each repeating section
+# # Create formsets for each repeating section
 
 
 
 
 
-class JobForm(forms.ModelForm):
-    title = forms.CharField(
-        required=True,
-        help_text="Required.",
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title, e.g UI/UX Researcher'})
-    )
-    company_name = forms.CharField(
-        required=True,
-        help_text="Required.",
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Company Name'})
-    )
-    location = forms.CharField(
-        required=True,
-        help_text="Required.",
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Location'})
-    )
-    salary = forms.IntegerField(
-        required=True,
-        help_text="Required.",
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Salary, e.g. 85'})
-    )
-    skill_required = forms.CharField(
-        required=True,
-        help_text="Required.",
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Skills, e.g. HTML'})
-    )
-    description = forms.CharField(
-        required=True,
-        help_text="Required.",
-        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '4',  'placeholder': 'Work Description'})
-    )
-    class Meta:
-        model = Job
-        fields = ['title', 'description', 'company_ame', 'location', 'salary', 'skill_required', 'job_type']
+# class JobForm(forms.ModelForm):
+#     title = forms.CharField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title, e.g UI/UX Researcher'})
+#     )
+#     company_name = forms.CharField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Company Name'})
+#     )
+#     location = forms.CharField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Location'})
+#     )
+#     salary = forms.IntegerField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Salary, e.g. 85'})
+#     )
+#     skill_required = forms.CharField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Skills, e.g. HTML'})
+#     )
+#     description = forms.CharField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '4',  'placeholder': 'Work Description'})
+#     )
+#     class Meta:
+#         model = Job
+#         fields = ['title', 'description', 'company_name', 'location', 'salary', 'skill_required', 'job_type']
 
 
 
@@ -291,15 +291,28 @@ class JobForm(forms.ModelForm):
         widget=forms.Textarea(attrs={
             'class': 'form-control',
             'rows': 4,
-            'placeholder': 'Work Description'
+            'placeholder': 'Description of the Job'
         })
     )
     job_type = forms.ChoiceField(
         required=True,
-        choices=Job.job_type.choices,  # Pull choices from the model
+        choices=Job.job_type.field.choices,  # Pull choices from the model
         widget=forms.Select(attrs={
             'class': 'form-control'
         })
+    )
+   
+    category = forms.ChoiceField(
+        choices=Job.JOB_CATEGORY_CHOICES,
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    cover_img = forms.ImageField(
+        required=True,
+        help_text="Optional.",
+        widget=forms.ClearableFileInput(attrs={'class': 'form-control-file'})
+
     )
 
     class Meta:
@@ -311,5 +324,7 @@ class JobForm(forms.ModelForm):
             'location', 
             'salary', 
             'skills_required', 
-            'job_type'
+            'job_type',
+            'category',
+            'cover_img'
         ]
