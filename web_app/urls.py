@@ -13,6 +13,7 @@ urlpatterns = [
  path('User-Profile', Profile_sign_up, name='profile-registration'),
 
  path('Dashboard', profile_view, name='profile'), 
+ path('Job-details/<int:job_id>', job_details, name='job_details'),
 
 
 #  job-seeker

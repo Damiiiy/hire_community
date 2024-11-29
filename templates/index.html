@@ -37,7 +37,9 @@
                 <span class="lni-menu"></span>
               </button>
               {% comment %} <a href="index.html" class="navbar-brand"><img src="{% static 'img/logo.png' %}" alt=""></a> {% endcomment %}
-              <a href="#" class="navbar-brand">Sanyataya</a>
+              {% comment %} <a href="#" class="navbar-brand">Sanyataya</a> {% endcomment %}
+              <a href="{% url 'index' %}" class="navbar-brand"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a>
+
 
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
@@ -68,7 +70,7 @@
             </div>
           </div>
         </div>
-        <div class="mobile-menu" data-logo="{% static 'img/logo-mobile.png' %}"></div>
+        <div class="mobile-menu" data-logo="{% static 'img/Sanyataya1.png' %}"></div>
       </nav>
       <!-- Navbar End -->
     
@@ -417,11 +419,11 @@
 
     {% else %}
          <!-- Testimonial Section Start -->
-      <section id="testimonial" class="section">
+      {% comment %} <section id="testimonial" class="section">
         <div class="container">
           <div class="section-header">  
             <h2 class="section-title">Clients Review</h2>
-            {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ellentesque dignissim quam et <br> metus effici turac fringilla lorem facilisis.</p>       {% endcomment %}
+            {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ellentesque dignissim quam et <br> metus effici turac fringilla lorem facilisis.</p>      
           </div>
           <div class="row justify-content-center">
             <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
@@ -478,7 +480,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> {% endcomment %}
       <!-- Testimonial Section End -->  
    {% endif %}
    
@@ -497,11 +499,9 @@
           <div class="row">
             <div class="col-lg-3 col-md-3 col-xs-12">
               <div class="widget">
-                {% comment %} <div class="footer-logo"><img src="{% static 'img/logo-footer.png' %}" alt=""></div> {% endcomment %}
-                <h3 class="block-title" style="color: white;">Sanyataya</h3>
-
+                {% comment %} <div class="footer-logo"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></div> {% endcomment %}
                 <div class="textwidget">
-                  <p>Sed consequat sapien faus quam bibendum convallis quis in nulla. Pellentesque volutpat odio eget diam cursus semper.</p>
+                  {% comment %} <p>Sed consequat sapien faus quam bibendum convallis quis in nulla. Pellentesque volutpat odio eget diam cursus semper.</p> {% endcomment %}
                 </div>
               </div>
             </div>

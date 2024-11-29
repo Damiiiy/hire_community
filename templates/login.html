@@ -37,7 +37,9 @@
                 <span class="lni-menu"></span>
                 <span class="lni-menu"></span>
               </button>
-              <a href="index.html" class="navbar-brand">Sanyataya</a>
+              <a href="{% url 'index' %}" class="navbar-brand"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a>
+
+              {% comment %} <a href="index.html" class="navbar-brand">Sanyataya</a> {% endcomment %}
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
               <ul class="navbar-nav mr-auto w-100 justify-content-end">
@@ -49,7 +51,7 @@
             </div>
           </div>
         </div>
-        {% comment %} <div class="mobile-menu" data-logo="{% static 'img/logo-mobile.png' %}"></div> {% endcomment %}
+        <div class="mobile-menu" data-logo="{% static 'img/Sanyataya1.png' %}"></div>
       </nav>
       <!-- Navbar End -->            
     </header>

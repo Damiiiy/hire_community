@@ -1,23 +1,6 @@
 {% load static %}
 <html lang="en">
   <head>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const userTypeField = document.getElementById("id_user_type");
-          const websiteField = document.querySelector(".field-website");
-
-          function toggleWebsiteField() {
-              if (userTypeField.value === 'employer') {
-                  websiteField.style.display = 'block';
-              } else {
-                  websiteField.style.display = 'none';
-              }
-          }
-
-          userTypeField.addEventListener("change", toggleWebsiteField);
-          toggleWebsiteField();  // Initial toggle based on default selection
-      });
-  </script>
   <style>
       .field-website { display: none; }  /* Hide the website field by default */
   </style>
@@ -27,7 +10,7 @@
     <meta name="keywords" content="Bootstrap, Landing page, Template, Registration, Landing">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="UIdeck">
-    <title>JobX - Sign Up</title>
+    <title>Sign Up</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -57,7 +40,9 @@
                 <span class="lni-menu"></span>
                 <span class="lni-menu"></span>
               </button>
-              <a href="index.html" class="navbar-brand"><img src="assets/img/logo.png" alt=""></a>
+              <a href="{% url 'index' %}" class="navbar-brand"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a>
+
+              {% comment %} <a href="index.html" class="navbar-brand"><img src="assets/img/logo.png" alt=""></a> {% endcomment %}
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
               <ul class="navbar-nav mr-auto w-100 justify-content-end">
@@ -69,7 +54,7 @@
             </div>
           </div>
         </div>
-        <div class="mobile-menu" data-logo="{% static 'img/logo-mobile.png' %}"></div>
+        <div class="mobile-menu" data-logo="{% static "img/Sanyataya1.png" %}"></div>
       </nav>
       <!-- Navbar End -->            
     </header>
@@ -179,7 +164,7 @@
           <div class="row">
             <div class="col-lg-3 col-md-3 col-xs-12">
               <div class="widget">
-                <div class="footer-logo"><img src="assets/img/logo-footer.png" alt=""></div>
+                <div class="footer-logo"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></div>
                 <div class="textwidget">
                   <p>Sed consequat sapien faus quam bibendum convallis quis in nulla. Pellentesque volutpat odio eget diam cursus semper.</p>
                 </div>
@@ -205,7 +190,7 @@
             <div class="col-lg-3 col-md-4 col-xs-12">
               <div class="widget">
                 <h3 class="block-title">Subscribe Now</h3>
-                <p>Sed consequat sapien faus quam bibendum convallis.</p> 
+                {% comment %} <p>Sed consequat sapien faus quam bibendum convallis.</p>  {% endcomment %}
                 <form method="post" id="subscribe-form" name="subscribe-form" class="validate">
                   <div class="form-group is-empty">
                     <input type="email" value="" name="Email" class="form-control" id="EMAIL" placeholder="Enter Email..." required="">
@@ -232,7 +217,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="site-info text-center">
-                <p> [Community Name]</p>
+                <p>Sanyataya </p>
               </div>     
             </div>
           </div>

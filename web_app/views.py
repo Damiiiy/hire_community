@@ -35,12 +35,19 @@ def profile_view(request):
         # get profile information
         profile = Profile.objects.get(user=users)
         if profile.user_type == "job_seeker":
+            try:
+                resume = ResumeProfile.objects.get(user=users)
+            except ResumeProfile.DoesNotExist:
+                # Handle the case where the profile does not exist
+                return render(request, 'profile.html', {'user': users, 'profile':profile,})
+    #   Continue with the logic if the profile exists
+            
             resume = ResumeProfile.objects.get(user=users)
             work_xp = Experience.objects.filter(profile=resume)
             edu_xp = Education.objects.filter(profile=resume)
             skils = ResumeSkill.objects.filter(profile=resume)
             return render(request, 'profile.html', {'user': users, 'profile':profile,'resume':resume, 'work_xp':work_xp, 'edu_xp':edu_xp, 'skills':skils})
-        
+            
         if profile.user_type == "employer":
             form = JobForm()
             if request.method == 'POST':
@@ -157,7 +164,7 @@ def Profile_sign_up(request):
                 email=user_form_data['email'],
                 password=user_form_data['password']
             )
-            user.save()
+            
             
           
             # Manually create and save the Profile instance
@@ -169,13 +176,20 @@ def Profile_sign_up(request):
                 profile_picture=form.cleaned_data['profile_picture'],
                 website=form.cleaned_data['website']
             )
-            profile.save()
 
-            # Log in the user and clear session data
-            # login(request, user)
-            request.session.pop('user_form_data', None)  # Clear session after registration
-            messages.success(request, "Registration successful!")
-            return redirect('home')
+            i = CustomUser.objects.all()
+            if user_form_data in i:
+                messages.error(request, "User Exist ALready")
+                return render(request, 'signup2.html', {'form': form})
+            else:
+                user.save()
+                profile.save()
+                # Log in the user and clear session data
+                # login(request, user)
+                request.session.pop('user_form_data', None)  # Clear session after registration
+                messages.success(request, "Registration successful!")
+                return render(request, 'signup2.html', {'form': form})
+
         else:
             messages.error(request, form.errors)
     else:
@@ -376,6 +390,20 @@ def add_job(request):
         form = JobForm(request.POST, request.FILES)
 
         if form.is_valid():
+            desc = form.cleaned_data['description']
+            word_count = len(desc.split())  # Count the words
+
+            if word_count < 100:
+                error_message = f"The description must contain at least 100 words. Currently, it has {word_count} words."
+                messages.error(request, error_message)
+                return render(request, 'profile.html', {
+                        'form': jobform,
+                        'user': users,
+                        'profile': profile
+                })    
+            else:
+                pass                
+
             try:
                 new_job = Job(
                     category=form.cleaned_data['category'],
@@ -409,6 +437,31 @@ def add_job(request):
 
 
 
+def job_details(request,job_id):
+    if 'user' not in request.session:
+        return redirect('index')
+    
+    user = request.session['user']
+    users = CustomUser.objects.get(username=user)
+    profile = Profile.objects.get(user=users)
+
+    job = Job.objects.get(id=job_id)
+
+    # random_objects = Job.objects.order_by('?')[:10]  # Fetch 10 random objects
+    random_objects = Job.objects.order_by('?') # Fetch 10 random objects
+
+
+
+    skills_list = job.skills_required.split(',') if job.skills_required else []
+
+
+    return render(request, 'job_details.html', {'job': job,'skills':skills_list, 'user': users, 'profile': profile, 'random': random_objects})
+
+    
+
+    
+
+    
 
 
 

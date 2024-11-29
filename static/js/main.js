@@ -59,7 +59,7 @@ JS INDEX
         label:'',
         closedSymbol:'<i class="lni-chevron-right"><i/>',
         openedSymbol:'<i class="lni-chevron-down"><i/>',
-        brand:'<a href="{% url "index" %}">< img src="{% static "img/Sanyataya1.png" %}" class="img-responsive" alt="logo"></a>'
+        brand:'<a href=""><img src="'+logo_path+'" class="img-responsive" alt="logo" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a>'
     });
       
     /*====================================

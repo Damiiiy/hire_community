@@ -29,7 +29,7 @@ class Profile(models.Model):
     website = models.URLField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.get_user_type_display()}"
+        return f"{self.user.username}"
 
 
 class Skill(models.Model):
@@ -79,6 +79,19 @@ class Job(models.Model):
     def __str__(self):
         return f"{self.title} at {self.employer.user.username}"
 
+class Unskilled_job(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    company_name = models.CharField(max_length=255)
+    location = models.CharField(max_length=255, blank=True, null=True)
+    salary = models.IntegerField(blank=True, null=True)
+    created_at = models.DateField(auto_now_add=True)
+    skills_required = models.CharField(max_length=255, blank=True, null=True)
+    job_type = models.CharField(
+        max_length=50,
+        choices=[('full_time', 'Full Time'), ('part_time', 'Part Time'), ('contract', 'Contract')]
+    )
+    cover_img = models.ImageField(upload_to='cover_images/', blank=True, null=True)
 
 class Application(models.Model):
     """

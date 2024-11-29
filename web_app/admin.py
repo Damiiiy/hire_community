@@ -7,6 +7,7 @@ from .models import *
 admin.site.register(Profile)
 admin.site.register(Skill)
 admin.site.register(Job)
+admin.site.register(Unskilled_job)
 admin.site.register(Application)
 admin.site.register(Message)
 admin.site.register(Review)

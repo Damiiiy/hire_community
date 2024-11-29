@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -7,17 +7,20 @@
     <meta name="keywords" content="Bootstrap, Landing page, Template, Registration, Landing">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="author" content="UIdeck">
-    <title>JobX - Bootstrap HTML5 Job Portal Template</title>
+    <title>Sanyataya- Job Details</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/line-icons.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.default.css">
-    <link rel="stylesheet" href="assets/css/slicknav.min.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="assets/css/main.css">    
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/line-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">    
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 
   </head>
   
@@ -37,80 +40,26 @@
                 <span class="lni-menu"></span>
                 <span class="lni-menu"></span>
               </button>
-              <a href="index.html" class="navbar-brand"><img src="assets/img/logo.png" alt=""></a>
+              <a href="{% url 'index' %}" class="navbar-brand"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a>
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
               <ul class="navbar-nav mr-auto w-100 justify-content-end">
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html">
+                  <a class="nav-link" href="{% url 'index' %}">
                     Home
                   </a>
                 </li>
-                <li class="nav-item dropdown active">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Pages
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="about.html">About</a></li>
-                    <li><a class="dropdown-item" href="job-page.html">Job Page</a></li>
-                    <li><a class="dropdown-item active" href="job-details.html">Job Details</a></li>
-                    <li><a class="dropdown-item" href="resume.html">Resume Page</a></li>
-                    <li><a class="dropdown-item" href="privacy-policy.html">Privacy Policy</a></li>
-                    <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
-                    <li><a class="dropdown-item" href="pricing.html">Pricing Tables</a></li>
-                    <li><a class="dropdown-item" href="contact.html">Contact</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Candidates
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="browse-jobs.html">Browse Jobs</a></li>
-                    <li><a class="dropdown-item" href="browse-categories.html">Browse Categories</a></li>
-                    <li><a class="dropdown-item" href="add-resume.html">Add Resume</a></li>
-                    <li><a class="dropdown-item" href="manage-resumes.html">Manage Resumes</a></li>
-                    <li><a class="dropdown-item" href="job-alerts.html">Job Alerts</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Employers
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="post-job.html">Add Job</a></li>
-                    <li><a class="dropdown-item" href="manage-jobs.html">Manage Jobs</a></li>
-                    <li><a class="dropdown-item" href="manage-applications.html">Manage Applications</a></li>
-                    <li><a class="dropdown-item" href="browse-resumes.html">Browse Resumes</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Blog 
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="blog.html">Blog - Right Sidebar</a></li>
-                    <li><a class="dropdown-item" href="blog-left-sidebar.html">Blog - Left Sidebar</a></li>
-                    <li><a class="dropdown-item" href="blog-full-width.html"> Blog full width</a></li>
-                    <li><a class="dropdown-item" href="single-post.html">Blog Single Post</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="contact.html">
-                    Contact
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="login.html">Sign In</a>
-                </li>
+      
                 <li class="button-group">
-                  <a href="post-job.html" class="button btn btn-common">Post a Job</a>
+                  <a href="{% url 'logout' %}" class="button btn btn-common">Sign Out</a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="mobile-menu" data-logo="assets/img/logo-mobile.png"></div>
+        <div class="mobile-menu" data-logo="{% static "img/Sanyataya1.png" %}" >
+          {% comment %} <a href="{% url 'index' %}"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a> {% endcomment %}
+        </div>
       </nav>
       <!-- Navbar End -->            
     </header>
@@ -122,23 +71,28 @@
         <div class="row">         
           <div class="col-lg-8 col-md-6 col-xs-12">
             <div class="breadcrumb-wrapper">
+              {% comment %} <div class="img-wrapper">
+                <img src="media/{{job.cover_img}}" alt="">
+                <img src="media/{{profile.profile_picture}}" alt="..." width="140" class="rounded mb-2 img-thumbnail" />
+
+              </div>  {% endcomment %}
               <div class="img-wrapper">
-                <img src="assets/img/about/company-logo.png" alt="">
-              </div>
+                <img src="{{ job.cover_img.url }}" alt="Job Cover Image" class="img-fluid">
+            </div>
               <div class="content">
-                <h3 class="product-title">Hiring UI Designer</h3>
-                <p class="brand">UIDeck Inc.</p>
+                <h3 class="product-title">Hiring a/an {{job.title}}</h3>
+                <p class="brand">{{job.company_name}}.</p>
                 <div class="tags">  
-                  <span><i class="lni-map-marker"></i> New York</span>  
-                  <span><i class="lni-calendar"></i> Posted 26 June, 2020</span>  
+                  <span><i class="lni-map-marker"></i> {{job.location}}</span>  
+                  <span><i class="lni-calendar"></i> Posted {{ job.created_at }}</span>  
                 </div>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 col-xs-12">
             <div class="month-price">
-              <span class="year">Yearly</span>
-              <div class="price">$65,000</div>
+              <span class="year">Paying</span>
+              <div class="price">&#8358;{{job.salary}}</div>
             </div>
           </div>
         </div>
@@ -153,16 +107,12 @@
           <div class="col-lg-8 col-md-12 col-xs-12">
             <div class="content-area">  
               <h4>Job Description</h4>
-              <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi umsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit</p>
-              <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi umsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio.</p>
+              <p>{{job.description}}</p>
               <h5>What You Need for this Position</h5>
-              <ul>
-                <li>- Objective-C</li>
-                <li>- iOS SDK</li>
-                <li>- XCode</li>
-                <li>- Cocoa</li>
-                <li>- ClojureScript</li>
-              </ul>
+              {% for x in skills  %}
+              <li>{{ x }}</li>
+              {% endfor %}
+              
               <h5>How To Apply</h5>
               <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.</p>
               <a href="#" class="btn btn-common">Apply job</a> 
@@ -172,13 +122,44 @@
             <div class="sideber">
               <div class="widghet">
                 <h3>Job Location</h3>
-                <div class="maps">
+                {% comment %} <div class="maps">
                   <div id="map" class="map-full">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d405691.57240383344!2d-122.3212843181106!3d37.40247298383319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb68ad0cfc739%3A0x7eb356b66bd4b50e!2sSilicon+Valley%2C+CA%2C+USA!5e0!3m2!1sen!2sbd!4v1538319316724" allowfullscreen=""></iframe>
                   </div>
-                </div>
+                </div> {% endcomment %}
+                {% comment %} <div class="maps" class="map-full">
+                  <iframe
+                    width="100%"
+                    height="400"
+                    frameborder="0"
+                    src="https://embed.maptiler.com/q/?key=GAdHvZHkjTfsZPKc2yOq&q={{ job.location|urlencode }}"
+                    allowfullscreen>
+                  </iframe>
+                </div> {% endcomment %}
+                {% comment %} <div class="maps" class="map-full">
+                  <iframe
+                    width="100%"
+                    height="400"
+                    frameborder="0"
+                    src="https://www.mapquest.com/embed?q={{ job.location|urlencode }}"
+                    allowfullscreen>
+                  </iframe>
+                </div> {% endcomment %}
+                <div id="map" class="maps map-full">
+                  <iframe
+                      width="100%"
+                      height="400"
+                      frameborder="0"
+                      src="https://www.openstreetmap.org/export/embed.html?search={{ job.location|urlencode }}&layers=mapnik"
+                      style="border:1px solid black;">
+                  </iframe>
               </div>
-              <div class="widghet">
+              
+                
+
+
+              </div>
+              {% comment %} <div class="widghet">
                 <h3>Share This Job</h3>
                 <div class="share-job">
                   <form method="post" class="subscribe-form">
@@ -200,7 +181,7 @@
                     <span class="meta-part"><a href="#"><i class="lni-share"></i> Share</a></span>
                   </div>
                 </div>
-              </div>
+              </div> {% endcomment %}
             </div>
           </div>
         </div>
@@ -212,7 +193,37 @@
     <section id="featured" class="section bg-gray pb-45">
       <div class="container">
         <h4 class="small-title text-left">Similar Jobs</h4>
-        <div class="row">
+          <div class="row">
+            {% for x in random %}
+            <div class="col-lg-6 col-md-12 col-xs-12">
+              <a class="job-listings-featured" href="{% url 'job_details' x.id %}">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-xs-12">
+                    <div class="job-company-logo">
+                      <img src="assets/img/features/img1.png" alt="">
+                    </div>
+                    <div class="job-details">
+                      <h3>{{ x.title}}</h3>
+                      <span class="company-neme">{{x.company_name}}</span>
+                      <div class="tags">  
+                        <span><i class="lni-map-marker"></i> {{x.location}} </span>  
+                        <span><i class="lni-user"></i>{{x.employer}}</span>   
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-xs-12 text-right">
+                    <div class="tag-type">
+                      <sapn class="heart-icon">
+                        <i class="lni-heart"></i>
+                      </sapn>
+                      <span class="full-time">{{x.job_type}}</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+        {% endfor %}
+        {% comment %} <div class="row">
           <div class="col-lg-6 col-md-12 col-xs-12">
             <a class="job-listings-featured" href="job-details.html">
               <div class="row">
@@ -267,7 +278,7 @@
               </div>
             </a>
           </div>
-        </div>
+        </div> {% endcomment %}
       </div>
     </section>
     <!-- Featured Section End -->
@@ -280,7 +291,9 @@
           <div class="row">
             <div class="col-lg-3 col-md-3 col-xs-12">
               <div class="widget">
-                <div class="footer-logo"><img src="assets/img/logo-footer.png" alt=""></div>
+                <div class="footer-logo"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></div>
+                {% comment %} <a href="{% url 'index' %}" class="navbar-brand"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a> {% endcomment %}
+
                 <div class="textwidget">
                   <p>Sed consequat sapien faus quam bibendum convallis quis in nulla. Pellentesque volutpat odio eget diam cursus semper.</p>
                 </div>
@@ -306,7 +319,7 @@
             <div class="col-lg-3 col-md-4 col-xs-12">
               <div class="widget">
                 <h3 class="block-title">Subscribe Now</h3>
-                <p>Sed consequat sapien faus quam bibendum convallis.</p> 
+                {% comment %} <p>Sed consequat sapien faus quam bibendum convallis.</p>  {% endcomment %}
                 <form method="post" id="subscribe-form" name="subscribe-form" class="validate">
                   <div class="form-group is-empty">
                     <input type="email" value="" name="Email" class="form-control" id="EMAIL" placeholder="Enter Email..." required="">
@@ -333,7 +346,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="site-info text-center">
-                <p>Designed and Developed by <a href="https://uideck.com" rel="nofollow">UIdeck</a></p>
+                <p>Sanyataya </p>
               </div>     
             </div>
           </div>
@@ -355,16 +368,53 @@
     <!-- End Preloader -->
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="assets/js/jquery-min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
+   
+    <script>
+        // Replace this with the actual job location from your backend
+        const jobLocation = "{{ job.location }}";
 
-    <script src="assets/js/owl.carousel.min.js"></script>     
-    <script src="assets/js/jquery.slicknav.js"></script>     
-    <script src="assets/js/jquery.counterup.min.js"></script>      
-    <script src="assets/js/waypoints.min.js"></script>     
-    <script src="assets/js/form-validator.min.js"></script>
-    <script src="assets/js/contact-form-script.js"></script>   
-    <script src="assets/js/main.js"></script>
+        // OpenCage API key (replace with your own)
+        const apiKey = "e47a88b789c147b480805e8ea5c51d87";
+        const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(jobLocation)}&key=${apiKey}`;
+
+        // Fetch coordinates for the job location
+        fetch(geocodeUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results.length > 0) {
+                    const { lat, lng } = data.results[0].geometry;
+
+                    // Initialize Leaflet map
+                    const map = L.map('map').setView([lat, lng], 13);
+
+                    // Add OpenStreetMap tiles
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+
+                    // Add a marker
+                    L.marker([lat, lng]).addTo(map)
+                        .bindPopup(`<b>${jobLocation}</b>`)
+                        .openPopup();
+                } else {
+                    alert("Location not found.");
+                }
+            })
+            .catch(error => console.error("Error fetching geocode data:", error));
+    </script>
+    <script src="{% static 'js/jquery-min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>     
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>     
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>      
+    <script src="{% static 'js/waypoints.min.js' %}"></script>     
+    <script src="{% static 'js/form-validator.min.js' %}"></script>
+    <script src="{% static 'js/contact-form-script.js' %}"></script>   
+    <script src="{% static 'js/main.js' %}"></script>
+
+
+    
     
   </body>
 </html>
