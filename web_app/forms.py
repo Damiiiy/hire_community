@@ -54,26 +54,22 @@ class ProfileForm(forms.ModelForm):
     )
     bio = forms.CharField(
         widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Tell us about yourself'}),
-        required=False
+        required=True
     )
     location = forms.CharField(
         max_length=255, 
-        required=False,
+        required=True,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Location'})
     )
     profile_picture = forms.ImageField(
-        required=False,
+        required=True,
         widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
     )
-    website = forms.URLField(
-        required=False, 
-        help_text="For employers only.",
-        widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'Website URL'})
-    )
+
   
     class Meta:
         model = Profile
-        fields = ['user_type', 'bio', 'location', 'profile_picture', 'website']
+        fields = ['user_type', 'bio', 'location', 'profile_picture']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}),
             

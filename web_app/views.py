@@ -4,8 +4,8 @@ from django.forms import modelformset_factory
 from web_app.models import *
 from django.contrib import messages
 from django.forms import ValidationError
-
 from web_app.forms import *
+import random
 
 
 
@@ -13,17 +13,22 @@ from web_app.forms import *
 
 
 def index(request):
+    jobs = list(Job.objects.all())  # Get all houses as a list
+    random.shuffle(jobs)  # Shuffle the list randomly
+
+    # Split skills in the view
+    for job in jobs:
+        job.skills_list = job.skills_required.split(",") if job.skills_required else []
+
     if 'user' in request.session:
         user = request.session['user']
         users = CustomUser.objects.get(username=user)
-            # userid = CustomUser.objects.get(id=users)
-        
-        
+       # userid = CustomUser.objects.get(id=users)
         profile = Profile.objects.get(user=users) 
 
-        return render(request, 'index.html', {'user': user, 'profile': profile})
+        return render(request, 'index.html', {'user': user, 'profile': profile , 'jobs': jobs})
     else:
-        return render(request, 'index.html')
+        return render(request, 'index.html', {'jobs': jobs})
     
 
 def profile_view(request):
@@ -56,14 +61,14 @@ def profile_view(request):
                 if form.is_valid():
                     try:
                         new_job = Job(
-                            category=form.cleaned_data['category'],
-                            title=form.cleaned_data['title'],
-                            description=form.cleaned_data['description'],
+                            category=form.cleaned_data['category'].title(),
+                            title=form.cleaned_data['title'].title(),
+                            description=form.cleaned_data['description'].capitalize(),
                             employer=users,
-                            location=form.cleaned_data['location'],
+                            location=form.cleaned_data['location'].title(),
                             salary=form.cleaned_data['salary'],
-                            skills_required=form.cleaned_data['skills_required'],
-                            job_type=form.cleaned_data['job_type'],
+                            skills_required=form.cleaned_data['skills_required'].title(),
+                            job_type=form.cleaned_data['job_type'].title(),
                             cover_img=form.cleaned_data['cover_img']
                         )
 
@@ -159,8 +164,8 @@ def Profile_sign_up(request):
             # Create User and Profile instances
             user = CustomUser(
                 username=user_form_data['username'],
-                first_name=user_form_data['first_name'],
-                last_name=user_form_data['last_name'],
+                first_name=user_form_data['first_name'].capitalize(),
+                last_name=user_form_data['last_name'].capitalize(),
                 email=user_form_data['email'],
                 password=user_form_data['password']
             )
@@ -171,10 +176,9 @@ def Profile_sign_up(request):
             profile = Profile(
                 user=user,
                 user_type=form.cleaned_data['user_type'],
-                bio=form.cleaned_data['bio'],
-                location=form.cleaned_data['location'],
+                bio=form.cleaned_data['bio'].capitalize(),
+                location=form.cleaned_data['location'].title(),
                 profile_picture=form.cleaned_data['profile_picture'],
-                website=form.cleaned_data['website']
             )
 
             i = CustomUser.objects.all()
@@ -311,10 +315,10 @@ def resume_skill_info(request):
             try:
                 resume = ResumeProfile(
                     user=users,
-                    name=resume_basic_form['name'],
+                    name=resume_basic_form['name'].title(),
                     email=resume_basic_form['email'],
-                    profession_title=resume_basic_form['profession_title'],
-                    location=resume_basic_form['location'],
+                    profession_title=resume_basic_form['profession_title'].capitalize(),
+                    location=resume_basic_form['location'].title(),
                     web=resume_basic_form['web'],
                     per_hour=resume_basic_form['per_hour'],
                     age=resume_basic_form['age'],
@@ -322,30 +326,30 @@ def resume_skill_info(request):
                 
                 edu_form = Education(
                     profile=resume,
-                    degree=resume_edu_form['degree'],
-                    field_of_study=resume_edu_form['field_of_study'],
-                    school=resume_edu_form['school'],
+                    degree=resume_edu_form['degree'].title(),
+                    field_of_study=resume_edu_form['field_of_study'].title(),
+                    school=resume_edu_form['school'].title(),
                     start_year=resume_edu_form['start_year'],
                     end_year=resume_edu_form['end_year'],
-                    description=resume_edu_form['description']
+                    description=resume_edu_form['description'].capitalize()
                 )
 
                 
 
                 work_form = Experience(
                     profile=resume,
-                    company_name=user_form_data_work['company_name'],
-                    title=user_form_data_work['title'],
+                    company_name=user_form_data_work['company_name'].title(),
+                    title=user_form_data_work['title'].title(),
                     work_start_year=user_form_data_work['work_start_year'],
                     work_end_year=user_form_data_work['work_end_year'],
-                    work_description=user_form_data_work['work_description']
+                    work_description=user_form_data_work['work_description'].capitalize()
                 )
                 
 
                 # Manually create and save the Profile instance
                 skill = ResumeSkill(
                     profile=resume,
-                    skill_name=form.cleaned_data['skill_name'],
+                    skill_name=form.cleaned_data['skill_name'].title(),
                     proficiency=form.cleaned_data['proficiency'],
                 )
 
@@ -406,14 +410,14 @@ def add_job(request):
 
             try:
                 new_job = Job(
-                    category=form.cleaned_data['category'],
-                    title=form.cleaned_data['title'],
-                    description=form.cleaned_data['description'],
+                    category=form.cleaned_data['category'].title(),
+                    title=form.cleaned_data['title'].title(),
+                    description=form.cleaned_data['description'].capitalize(),
                     employer=users,
-                    location=form.cleaned_data['location'],
+                    location=form.cleaned_data['location'].title(),
                     salary=form.cleaned_data['salary'],
-                    skills_required=form.cleaned_data['skills_required'],
-                    job_type=form.cleaned_data['job_type'],
+                    skills_required=form.cleaned_data['skills_required'].title(),
+                    job_type=form.cleaned_data['job_type'].title(),
                     cover_img=form.cleaned_data['cover_img']
                 )
 
