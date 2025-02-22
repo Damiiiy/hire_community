@@ -17,11 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">    
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-    <style>
-      .bg-orange { background-color: orange; padding: 5px 10px; border-radius: 5px; color: white; }
-      .bg-green { background-color: green; padding: 5px 10px; border-radius: 5px; color: white; }
-      .bg-yellow { background-color: yellow; padding: 5px 10px; border-radius: 5px; color: black; }
-    </style>
+
   </head>
   
 <body>
@@ -54,7 +50,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  {% if 'user' in request.session %}
+                  {% if user.is_authenticated %}
                       <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                   {% else %}
                   <a class="nav-link" href="{% url 'login' %}">Sign In</a>
@@ -62,7 +58,7 @@
                   {% endif %}
                 </li>
                 <li class="button-group">
-                  {% if 'user' in request.session %}
+                  {% if user.is_authenticated %}
                       <a href="{% url 'profile' %}" title="Profile" ><img src="media/{{profile.profile_picture}}" class="rounded-circle" style="height: 50px; width: 50px" ></a>
                   {% else %}
                        <a href="{% url 'signup' %}" class="button btn btn-common">Get Started</a>
@@ -230,7 +226,7 @@
 
 
     <!-- Browse jobs Section Start -->
-    {% if 'user' in request.session %}
+    {% if user.is_authenticated %}
 
     {% else %}
       <div id="browse-jobs" class="section bg-gray">
@@ -256,7 +252,7 @@
     {% endif %}
     
     <!-- Browse jobs Section End -->   
-    {% if 'user' in request.session %}
+    {% if user.is_authenticated %}
       
     {% else %}
         <!-- How It Work Section Start -->
@@ -318,15 +314,23 @@
               </div>
               <div class="content">
                 <h3><a href="">{{ job.title }}</a></h3>
-                <p class="brand">{{ job.company }}</p>
+                <p class="brand">{{ job.company_name }}</p>
                 <div class="tags">  
                   <span><i class="lni-map-marker"></i> {{ job.location }}</span>  
                   <span><i class="lni-user"></i> {{ job.employer.user.first_name }} {{ job.employer.user.last_name }}</span> 
                 </div>
                 <div class="tag mb-3"><i class="lni-tag"></i> 
-              {% for skill in job.skills_list %} #{{ skill }} {% endfor %}
+                {% for skill in job.skills_list %} #{{ skill }} {% endfor %}
                 </div>
-            <span class="job-type-badge {% if job.job_type == 'contract' %}bg-orange{% elif job.job_type == 'full-time' %}bg-green{% elif job.job_type == 'part-time' %}bg-yellow{% endif %}">
+                {% if job.job_type == 'contract' %}
+                  <span class="contract">Contract</span>
+                {% elif job.job_type == 'part_time' %}
+                  <span class="part-time">Part Time</span>
+                {% elif job.job_type == 'full_time' %}
+                  <span class="full-time">Full Time</span>
+                {% endif %}
+
+                </span>
               </div>
             </div>
           </div>
@@ -338,7 +342,7 @@
       </div>
     </section>
     <!-- Latest Section End -->
-    {% if 'user' in request.session %}
+    {% if user.is_authenticated %}
 
     {% else %}
          <!-- Testimonial Section Start -->

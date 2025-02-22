@@ -85,7 +85,8 @@
                 <div class="form-group">
                   <div class="input-icon">
                     <i class="lni-user"></i>
-                    <input type="text" id="username" class="form-control" name="username" placeholder="Username">
+                      {{ form.email }}
+<!--                    <input type="text" id="username" class="form-control" name="email" placeholder="Email">-->
                   </div>
                     {% if messege %}
                       <p style="color: red;">{{ messege }}</p>
@@ -94,7 +95,8 @@
                 <div class="form-group">
                   <div class="input-icon">
                     <i class="lni-lock"></i>
-                    <input type="password" name="password" class="form-control" placeholder="Password">
+                    {{ form.password }}
+<!--                    <input type="password" name="password" class="form-control" placeholder="Password">-->
                   </div>
                 </div> 
               

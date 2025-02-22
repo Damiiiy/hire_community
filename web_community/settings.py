@@ -132,7 +132,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
+AUTH_USER_MODEL = "web_app.CustomUser"  # Replace "app" with your actual app name
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 
 # Media files location and URL configuration

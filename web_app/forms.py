@@ -1,11 +1,11 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.forms import modelformset_factory
 
 from .models import *
 
-
-
-class UserForm(forms.ModelForm):
+class UserForm(UserCreationForm):
+    # email = forms.EmailField(required=True)
     first_name = forms.CharField(
         required=True,
         help_text="Required.",
@@ -17,11 +17,6 @@ class UserForm(forms.ModelForm):
         help_text="Required.",
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'})
     )
-    username = forms.CharField(
-        required=True,
-        help_text="Required.",
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})
-    )
 
     email = forms.EmailField(
         required=True,
@@ -29,16 +24,63 @@ class UserForm(forms.ModelForm):
         widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
     )
 
-    password = forms.CharField(
+    password1 = forms.CharField(
         label="Password",
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter Password'})
     )
-    
+
+    password2 = forms.CharField(
+        label=" Confirm Password",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirm Password'})
+    )
+
     class Meta:
         model = CustomUser
-        fields = ['username', 'first_name', 'last_name', 'email', 'password']
+        fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
 
+# class UserForm(forms.ModelForm):
+#     first_name = forms.CharField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'})
+#     )
+#
+#     last_name = forms.CharField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'})
+#     )
+#
+#
+#     email = forms.EmailField(
+#         required=True,
+#         help_text="Required. Enter a valid email address.",
+#         widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
+#     )
+#
+#     password = forms.CharField(
+#         label="Password",
+#         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
+#     )
+#
+#
+#     class Meta:
+#         model = CustomUser
+#         fields = ['first_name', 'last_name', 'email', 'password']
 
+class LoginForm(AuthenticationForm):
+    email = forms.EmailField(
+            widget=forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your email',
+                'autofocus': True,
+            }),
+            label="Email"
+    )
+    password = forms.CharField(
+        label="Password",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter Password'})
+        )
 
 
 class ProfileForm(forms.ModelForm):
@@ -199,83 +241,45 @@ class SkillForm(forms.ModelForm):
         model = ResumeSkill
         fields = ['skill_name', 'proficiency']
 
-# # Create formsets for each repeating section
-
-
-
-
-
-# class JobForm(forms.ModelForm):
-#     title = forms.CharField(
-#         required=True,
-#         help_text="Required.",
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title, e.g UI/UX Researcher'})
-#     )
-#     company_name = forms.CharField(
-#         required=True,
-#         help_text="Required.",
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Company Name'})
-#     )
-#     location = forms.CharField(
-#         required=True,
-#         help_text="Required.",
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Location'})
-#     )
-#     salary = forms.IntegerField(
-#         required=True,
-#         help_text="Required.",
-#         widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Salary, e.g. 85'})
-#     )
-#     skill_required = forms.CharField(
-#         required=True,
-#         help_text="Required.",
-#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Skills, e.g. HTML'})
-#     )
-#     description = forms.CharField(
-#         required=True,
-#         help_text="Required.",
-#         widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '4',  'placeholder': 'Work Description'})
-#     )
-#     class Meta:
-#         model = Job
-#         fields = ['title', 'description', 'company_name', 'location', 'salary', 'skill_required', 'job_type']
-
-
 
 class JobForm(forms.ModelForm):
     title = forms.CharField(
         required=True,
-        help_text="Required.",
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Title, e.g., UI/UX Researcher'
         })
     )
+    job_tag = forms.CharField(
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': "Job's Tag"
+        })
+    )
     company_name = forms.CharField(
         required=True,
-        help_text="Required.",
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Company Name'
         })
     )
     location = forms.CharField(
-        required=False,  # Optional field in the model
+        required=True,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Location'
         })
     )
     salary = forms.IntegerField(
-        required=False,  # Optional field in the model
+        required=True,
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
             'placeholder': 'Salary, e.g., 85'
         })
     )
     skills_required = forms.CharField(
-        required=False,  # Optional field in the model
-        help_text="Optional.",
+        required=True,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Skills, e.g., HTML'
@@ -283,7 +287,6 @@ class JobForm(forms.ModelForm):
     )
     description = forms.CharField(
         required=True,
-        help_text="Required.",
         widget=forms.Textarea(attrs={
             'class': 'form-control',
             'rows': 4,
@@ -292,35 +295,126 @@ class JobForm(forms.ModelForm):
     )
     job_type = forms.ChoiceField(
         required=True,
-        choices=Job.job_type.field.choices,  # Pull choices from the model
-        widget=forms.Select(attrs={
-            'class': 'form-control'
-        })
-    )
-   
-    category = forms.ChoiceField(
-        choices=Job.JOB_CATEGORY_CHOICES,
-        required=True,
+        choices=Job.JOB_TYPE_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
-
+    category = forms.ChoiceField(
+        required=True,
+        choices=Job.JOB_CATEGORY_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
     cover_img = forms.ImageField(
         required=True,
-        help_text="Optional.",
         widget=forms.ClearableFileInput(attrs={'class': 'form-control-file'})
-
     )
 
     class Meta:
         model = Job
         fields = [
-            'title', 
-            'description', 
-            'company_name', 
-            'location', 
-            'salary', 
-            'skills_required', 
+            'title',
+            'job_tag',
+            'description',
+            'company_name',
+            'location',
+            'salary',
+            'skills_required',
             'job_type',
             'category',
             'cover_img'
         ]
+
+
+
+#
+# class JobForm(forms.ModelForm):
+#     title = forms.CharField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.TextInput(attrs={
+#             'class': 'form-control',
+#             'placeholder': 'Title, e.g., UI/UX Researcher'
+#         })
+#     )
+#     job_tag = forms.CharField(
+#         required=True,  # Optional field in the model
+#         help_text="Optional.",
+#         widget=forms.TextInput(attrs={
+#             'class': 'form-control',
+#             'placeholder': "Job's Tag"
+#         })
+#     )
+#     company_name = forms.CharField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.TextInput(attrs={
+#             'class': 'form-control',
+#             'placeholder': 'Company Name'
+#         })
+#     )
+#     location = forms.CharField(
+#         required=True,  # Optional field in the model
+#         widget=forms.TextInput(attrs={
+#             'class': 'form-control',
+#             'placeholder': 'Location'
+#         })
+#     )
+#     salary = forms.IntegerField(
+#         required=True,  # Optional field in the model
+#         widget=forms.NumberInput(attrs={
+#             'class': 'form-control',
+#             'placeholder': 'Salary, e.g., 85'
+#         })
+#     )
+#
+#     skills_required = forms.CharField(
+#         required=True,  # Optional field in the model
+#         help_text="Optional.",
+#         widget=forms.TextInput(attrs={
+#             'class': 'form-control',
+#             'placeholder': 'Skills, e.g., HTML'
+#         })
+#     )
+#     description = forms.CharField(
+#         required=True,
+#         help_text="Required.",
+#         widget=forms.Textarea(attrs={
+#             'class': 'form-control',
+#             'rows': 4,
+#             'placeholder': 'Description of the Job'
+#         })
+#     )
+#     job_type = forms.ChoiceField(
+#         required=True,
+#         choices=Job.job_type.field.choices,
+#         widget=forms.Select(attrs={
+#             'class': 'form-control'
+#         })
+#     )
+#
+#     category = forms.ChoiceField(
+#         choices=Job.JOB_CATEGORY_CHOICES,
+#         required=True,
+#         widget=forms.Select(attrs={'class': 'form-control'})
+#     )
+#
+#     cover_img = forms.ImageField(
+#         required=True,
+#         help_text="Optional.",
+#         widget=forms.ClearableFileInput(attrs={'class': 'form-control-file'})
+#
+#     )
+#
+#     class Meta:
+#         model = Job
+#         fields = [
+#             'title',
+#             'job_tags'
+#             'description',
+#             'company_name',
+#             'location',
+#             'salary',
+#             'skills_required',
+#             'job_type',
+#             'category',
+#             'cover_img'
+#         ]
