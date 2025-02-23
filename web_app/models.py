@@ -94,7 +94,7 @@ class Job(models.Model):
     cover_img = models.ImageField(upload_to='cover_images/')
 
     def __str__(self):
-        return f"{self.title} at {self.employer.user.username}"
+        return f"{self.title} at {self.employer.user.email}"
 
 
 class Unskilled_job(models.Model):

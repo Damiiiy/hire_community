@@ -209,7 +209,7 @@
                           {% endfor %}
                       </div>
                     {% endif %}
-                    <form class="form-ad" method="POST" action="" enctype="multipart/form-data">
+                    <form class="form-ad" method="POST" action="{% url 'add_job' %}" enctype="multipart/form-data">
                       {% csrf_token %}
                       <div class="form-group">
                         <label class="control-label">Job Title</label>
@@ -252,7 +252,7 @@
 
                       <div class="form-group">
                         <label class="control-label">Job Tags</label>
-                        {{form.job_tags}}
+                        {{form.job_tag }}
 
                         {% comment %} <input type="text" class="form-control" placeholder="e.g.PHP,Social Media,Management"> {% endcomment %}
                         <p class="note">Comma separate tags for this job.</p>

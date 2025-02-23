@@ -7,10 +7,7 @@ from django.forms import ValidationError
 from web_app.forms import *
 import random
 
-
-
 # Create your views here.
-
 
 def index(request):
     jobs = list(Job.objects.all())  # Get all houses as a list
@@ -36,7 +33,6 @@ def profile_view(request):
     if request.user.is_authenticated:
         user = request.user.email
         users = CustomUser.objects.get(email=user)
-
 
         # get profile information
         profile, created = Profile.objects.get_or_create(user=request.user)
@@ -71,11 +67,13 @@ def profile_view(request):
                             location=form.cleaned_data['location'].title(),
                             salary=form.cleaned_data['salary'],
                             skills_required=form.cleaned_data['skills_required'].title(),
+                            job_tag=form.cleaned_data['job_tag'].title(),
                             job_type=form.cleaned_data['job_type'].title(),
                             cover_img=form.cleaned_data['cover_img']
                         )
 
-                        # new_job.save()
+                        new_job.save()
+                        messages.success(request, "Job created successful!")
 
                         return redirect('profile')
                     except Exception:
@@ -164,6 +162,9 @@ def signout(request):
 
 
 def User_sign_up(request):
+    if request.user.is_authenticated:
+        return redirect(index)
+
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
@@ -178,6 +179,9 @@ def User_sign_up(request):
 
 
 def Profile_sign_up(request):
+    if request.user.is_authenticated:
+        return redirect(index)
+
     user_form_data = request.session.get('user_form_data')
     if not user_form_data:
         messages.error(request, "User form data not found. Please complete Step 1.")
@@ -466,75 +470,184 @@ def resume_skill_info(request):
 
 
 
-def add_job(request):
-    if 'user' not in request.session:
-        return redirect('index')
-    
-    user = request.session['user']
-    users = CustomUser.objects.get(username=user)
-    profile = Profile.objects.get(user=users)
+# def add_job(request):
+#     if 'user' not in request.session:
+#         return redirect('index')
+#
+#     user = request.session['user']
+#     users = CustomUser.objects.get(username=user)
+#     profile = Profile.objects.get(user=users)
+#
+#     jobform = JobForm()
+#
+#     if request.method == 'POST':
+#         form = JobForm(request.POST, request.FILES)
+#
+#         if form.is_valid():
+#             desc = form.cleaned_data['description']
+#             word_count = len(desc.split())  # Count the words
+#
+#             if word_count < 100:
+#                 error_message = f"The description must contain at least 100 words. Currently, it has {word_count} words."
+#                 messages.error(request, error_message)
+#                 return render(request, 'profile.html', {
+#                         'form': jobform,
+#                         'user': users,
+#                         'profile': profile
+#                 })
+#             else:
+#                 pass
+#
+#             try:
+#                 new_job = Job(
+#                     category=form.cleaned_data['category'].title(),
+#                     title=form.cleaned_data['title'].title(),
+#                     description=form.cleaned_data['description'].capitalize(),
+#                     employer=users,
+#                     location=form.cleaned_data['location'].title(),
+#                     salary=form.cleaned_data['salary'],
+#                     skills_required=form.cleaned_data['skills_required'].title(),
+#                     job_tag=form.cleaned_data['job_tag'].title(),
+#                     job_type=form.cleaned_data['job_type'].title(),
+#                     cover_img=form.cleaned_data['cover_img']
+#                 )
+#
+#                 new_job.save()
+#
+#                 return redirect('profile')
+#             except Exception:
+#                 messages.error(request, form.errors)
+#
+#         else:
+#             messages.error(request, form.errors)
+#
+#     else:
+#         form = JobForm()
+#
+#     return render(request, 'profile.html', {
+#             'form': jobform,
+#             'user': users,
+#             'profile': profile
+#         })
+#
+#
 
-    jobform = JobForm()
+# def add_job(request):
+#     if not request.user.is_authenticated:
+#         return redirect('index')
+#
+#     user = request.user.email
+#
+#     # get profile information
+#     user = request.user
+#     try:
+#         users = CustomUser.objects.get(email=user)
+#         profile, created = Profile.objects.get_or_create(user=request.user)
+#     except CustomUser.DoesNotExist:
+#         messages.error(request, "User does not exist.")
+#         return redirect('index')
+#     except Profile.DoesNotExist:
+#         messages.error(request, "Profile does not exist.")
+#         return redirect('index')
+#
+#     if request.method == 'POST':
+#         form = JobForm(request.POST, request.FILES)
+#
+#         if form.is_valid():
+#             desc = form.cleaned_data['description']
+#             word_count = len(desc.split())  # Count the words
+#
+#             if word_count < 100:
+#                 error_message = f"The description must contain at least 100 words. Currently, it has {word_count} words."
+#                 messages.error(request, error_message)
+#             else:
+#                 try:
+#                     Job.objects.create(
+#                         category=form.cleaned_data['category'].title(),
+#                         title=form.cleaned_data['title'].title(),
+#                         description=form.cleaned_data['description'].capitalize(),
+#                         employer=users,
+#                         location=form.cleaned_data['location'].title(),
+#                         salary=form.cleaned_data['salary'],
+#                         skills_required=form.cleaned_data['skills_required'].title(),
+#                         job_tag=form.cleaned_data['job_tag'].title(),
+#                         job_type=form.cleaned_data['job_type'].title(),
+#                         cover_img=form.cleaned_data['cover_img']
+#                     )
+#
+#                     messages.success(request, "Job added successfully!")
+#                     return redirect('profile')
+#                 except Exception as e:
+#                     messages.error(request, f"Error saving job: {e}")
+#         else:
+#             messages.error(request, "Invalid form submission. Please check the entered details.")
+#     else:
+#         form = JobForm()
+#
+#     return render(request, 'profile.html', {
+#         'form': form,
+#         'user': users,
+#         'profile': profile
+#     })
+
+
+def add_job(request):
+    if not request.user.is_authenticated:
+        return redirect('index')
+
+    try:
+        users = CustomUser.objects.get(email=request.user.email)
+        profile, created = Profile.objects.get_or_create(user=request.user)
+    except CustomUser.DoesNotExist:
+        messages.error(request, "User does not exist.")
+        return redirect('index')
+    except Profile.DoesNotExist:
+        messages.error(request, "Profile does not exist.")
+        return redirect('index')
 
     if request.method == 'POST':
         form = JobForm(request.POST, request.FILES)
 
         if form.is_valid():
             desc = form.cleaned_data['description']
-            word_count = len(desc.split())  # Count the words
+            word_count = len(desc.split())
 
             if word_count < 100:
-                error_message = f"The description must contain at least 100 words. Currently, it has {word_count} words."
-                messages.error(request, error_message)
-                return render(request, 'profile.html', {
-                        'form': jobform,
-                        'user': users,
-                        'profile': profile
-                })    
+                messages.error(request,
+                               f"The description must contain at least 100 words. Currently, it has {word_count} words.")
             else:
-                pass                
+                try:
+                    job = form.save(commit=False)  # Save form without committing to DB
+                    job.employer = profile  # Assign the logged-in employer profile
+                    job.category = form.cleaned_data['category'].title()
+                    job.title = form.cleaned_data['title'].title()
+                    job.description = form.cleaned_data['description'].capitalize()
+                    job.location = form.cleaned_data['location'].title()
+                    job.skills_required = form.cleaned_data['skills_required'].title()
+                    job.job_tag = form.cleaned_data['job_tag'].title()
+                    job.job_type = form.cleaned_data['job_type'].title()
+                    job.cover_img = form.cleaned_data['cover_img']
+                    job.save()  # Save to database
 
-            try:
-                new_job = Job(
-                    category=form.cleaned_data['category'].title(),
-                    title=form.cleaned_data['title'].title(),
-                    description=form.cleaned_data['description'].capitalize(),
-                    employer=users,
-                    location=form.cleaned_data['location'].title(),
-                    salary=form.cleaned_data['salary'],
-                    skills_required=form.cleaned_data['skills_required'].title(),
-                    job_tag=form.cleaned_data['job_tag'].title(),
-                    job_type=form.cleaned_data['job_type'].title(),
-                    cover_img=form.cleaned_data['cover_img']
-                )
-
-                new_job.save()
-
-                return redirect('profile')
-            except Exception:
-                messages.error(request, form.errors)
-
+                    messages.success(request, "Job added successfully!")
+                    return redirect('profile')
+                except Exception as e:
+                    messages.error(request, f"Error saving job: {e}")
         else:
-            messages.error(request, form.errors)
-
+            messages.error(request, "Invalid form submission. Please check the entered details.")
     else:
         form = JobForm()
 
-    return render(request, 'profile.html', {
-            'form': jobform,
-            'user': users,
-            'profile': profile
-        })                    
-
-
+    return render(request, 'profile.html', {'form': form, 'user': users, 'profile': profile})
 
 def job_details(request,job_id):
-    if 'user' not in request.session:
+    if not request.user.is_authenticated:
         return redirect('index')
     
-    user = request.session['user']
-    users = CustomUser.objects.get(username=user)
-    profile = Profile.objects.get(user=users)
+    user = request.user
+    users = CustomUser.objects.get(email=user)
+
+    profile, created = Profile.objects.get_or_create(user=request.user)
 
     job = Job.objects.get(id=job_id)
 
