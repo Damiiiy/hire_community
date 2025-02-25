@@ -243,6 +243,8 @@ class SkillForm(forms.ModelForm):
 
 
 
+
+
 class JobForm(forms.ModelForm):
     title = forms.CharField(
         required=True,
@@ -262,11 +264,11 @@ class JobForm(forms.ModelForm):
     )
     salary = forms.IntegerField(
         required=True,
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Salary, e.g., 85'})
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Salary, e.g., 85000'})
     )
     skills_required = forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Skills, e.g., HTML'})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Skills, e.g., HTML, Python, Marketing'})
     )
     description = forms.CharField(
         required=True,
@@ -274,13 +276,14 @@ class JobForm(forms.ModelForm):
     )
     job_type = forms.ChoiceField(
         required=True,
-        choices=Job.JOB_TYPE_CHOICES,  # Fixed the choices reference
+        choices=Job.JOB_TYPE_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
-    category = forms.ChoiceField(
+    category = forms.ModelChoiceField(
         required=True,
-        choices=Job.JOB_CATEGORY_CHOICES,
-        widget=forms.Select(attrs={'class': 'form-control'})
+        queryset=Category.objects.all(),  # Fetch categories dynamically from the database
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        empty_label="Select a Category"
     )
     cover_img = forms.ImageField(
         required=True,
@@ -305,61 +308,44 @@ class JobForm(forms.ModelForm):
 
 
 
+
+
+
+
+
 #
 # class JobForm(forms.ModelForm):
 #     title = forms.CharField(
 #         required=True,
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Title, e.g., UI/UX Researcher'
-#         })
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title, e.g., UI/UX Researcher'})
 #     )
 #     job_tag = forms.CharField(
 #         required=True,
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': "Job's Tag"
-#         })
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Job's Tag"})
 #     )
 #     company_name = forms.CharField(
 #         required=True,
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Company Name'
-#         })
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Company Name'})
 #     )
 #     location = forms.CharField(
 #         required=True,
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Location'
-#         })
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Location'})
 #     )
 #     salary = forms.IntegerField(
 #         required=True,
-#         widget=forms.NumberInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Salary, e.g., 85'
-#         })
+#         widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Salary, e.g., 85'})
 #     )
 #     skills_required = forms.CharField(
 #         required=True,
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Skills, e.g., HTML'
-#         })
+#         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Skills, e.g., HTML'})
 #     )
 #     description = forms.CharField(
 #         required=True,
-#         widget=forms.Textarea(attrs={
-#             'class': 'form-control',
-#             'rows': 4,
-#             'placeholder': 'Description of the Job'
-#         })
+#         widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Description of the Job'})
 #     )
 #     job_type = forms.ChoiceField(
 #         required=True,
-#         choices=Job.JOB_TYPE_CHOICES,
+#         choices=Job.JOB_TYPE_CHOICES,  # Fixed the choices reference
 #         widget=forms.Select(attrs={'class': 'form-control'})
 #     )
 #     category = forms.ChoiceField(
@@ -386,99 +372,6 @@ class JobForm(forms.ModelForm):
 #             'category',
 #             'cover_img'
 #         ]
-
-############################################################33
-
 #
-# class JobForm(forms.ModelForm):
-#     title = forms.CharField(
-#         required=True,
-#         help_text="Required.",
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Title, e.g., UI/UX Researcher'
-#         })
-#     )
-#     job_tag = forms.CharField(
-#         required=True,  # Optional field in the model
-#         help_text="Optional.",
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': "Job's Tag"
-#         })
-#     )
-#     company_name = forms.CharField(
-#         required=True,
-#         help_text="Required.",
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Company Name'
-#         })
-#     )
-#     location = forms.CharField(
-#         required=True,  # Optional field in the model
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Location'
-#         })
-#     )
-#     salary = forms.IntegerField(
-#         required=True,  # Optional field in the model
-#         widget=forms.NumberInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Salary, e.g., 85'
-#         })
-#     )
 #
-#     skills_required = forms.CharField(
-#         required=True,  # Optional field in the model
-#         help_text="Optional.",
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'placeholder': 'Skills, e.g., HTML'
-#         })
-#     )
-#     description = forms.CharField(
-#         required=True,
-#         help_text="Required.",
-#         widget=forms.Textarea(attrs={
-#             'class': 'form-control',
-#             'rows': 4,
-#             'placeholder': 'Description of the Job'
-#         })
-#     )
-#     job_type = forms.ChoiceField(
-#         required=True,
-#         choices=Job.job_type.field.choices,
-#         widget=forms.Select(attrs={
-#             'class': 'form-control'
-#         })
-#     )
 #
-#     category = forms.ChoiceField(
-#         choices=Job.JOB_CATEGORY_CHOICES,
-#         required=True,
-#         widget=forms.Select(attrs={'class': 'form-control'})
-#     )
-#
-#     cover_img = forms.ImageField(
-#         required=True,
-#         help_text="Optional.",
-#         widget=forms.ClearableFileInput(attrs={'class': 'form-control-file'})
-#
-#     )
-#
-#     class Meta:
-#         model = Job
-#         fields = [
-#             'title',
-#             'job_tags'
-#             'description',
-#             'company_name',
-#             'location',
-#             'salary',
-#             'skills_required',
-#             'job_type',
-#             'category',
-#             'cover_img'
-#         ]

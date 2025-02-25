@@ -14,9 +14,9 @@ urlpatterns = [
 
  path('Dashboard', profile_view, name='profile'), 
  path('Job-details/<int:job_id>', job_details, name='job_details'),
+ path('browse-jobs/<str:category_name>/', browse_jobs, name='browse_jobs'),
 
-
-#  job-seeker
+               #  job-seeker
  path('Manage-application', manage_application, name='manage_application'),
 #  path('Add-Resume', add_resume, name='add_resume'),
  path('Basic-informations', resume_basic_info, name='resume_basic'),

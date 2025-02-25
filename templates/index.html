@@ -39,15 +39,11 @@
               {% comment %} <a href="index.html" class="navbar-brand"><img src="{% static 'img/logo.png' %}" alt=""></a> {% endcomment %}
               {% comment %} <a href="#" class="navbar-brand">Sanyataya</a> {% endcomment %}
               <a href="{% url 'index' %}" class="navbar-brand"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a>
-
-
             </div>
             <div class="collapse navbar-collapse" id="main-navbar">
               <ul class="navbar-nav mr-auto w-100 justify-content-end">
                 <li class="nav-item active">
-                  <a class="nav-link" href="index.html">
-                    Home
-                  </a>
+
                 </li>
                 <li class="nav-item">
                   {% if user.is_authenticated %}
@@ -140,89 +136,206 @@
     <!-- Header Section End --> 
 
     <!-- Category Section Start -->
-    <section class="category section bg-gray">
-      <div class="container">
-        <div class="section-header">  
-          <h2 class="section-title">Browse Categories</h2>
-          <p>Most popular categories of portal, sorted by popularity</p>
-        </div>
-        <div class="row">   
-          <div class="col-lg-3 col-md-6 col-xs-12 f-category">
-            <a href="browse-jobs.html">
-              <div class="icon bg-color-1">
-                <i class="lni-home"></i>
-              </div>
-              <h3>Finance</h3>
-              <p>(4286 jobs)</p>
-            </a>
+<section class="category section bg-gray">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Browse Categories</h2>
+      <p>Most popular categories of portal, sorted by popularity</p>
+    </div>
+    <div class="row">
+      {% for category in categories %}
+      <div class="col-lg-3 col-md-6 col-xs-12 f-category">
+        <a href="{% url 'browse_jobs' category.name %}">
+          <div class="icon bg-color-{{ forloop.counter }}">
+            <i class="{{ category.icon_class }}"></i>
           </div>
-          <div class="col-lg-3 col-md-6 col-xs-12 f-category">
-            <a href="browse-jobs.html">
-              <div class="icon bg-color-2">
-               <i class="lni-world"></i>
-              </div>
-              <h3>Sale/Markting</h3>
-              <p>(2000 jobs)</p>
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-6 col-xs-12 f-category">
-            <a href="browse-jobs.html">
-              <div class="icon bg-color-3">
-               <i class="lni-book"></i>
-              </div>
-              <h3>Education/Training</h3>
-              <p>(1450 jobs)</p>
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-6 col-xs-12 f-category border-right-0">
-            <a href="browse-jobs.html">
-              <div class="icon bg-color-4">
-               <i class="lni-display"></i>
-              </div>
-              <h3>Technologies</h3>
-              <p>(5100 jobs)</p>
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-6 col-xs-12 f-category border-bottom-0">
-            <a href="browse-jobs.html">
-              <div class="icon bg-color-5">
-                <i class="lni-brush"></i>
-              </div>
-              <h3>Art/Design</h3>
-              <p>(5079 jobs)</p>
-            </a>
-          </div>            
-          <div class="col-lg-3 col-md-6 col-xs-12 f-category border-bottom-0">
-            <a href="browse-jobs.html">
-              <div class="icon bg-color-6">
-              <i class="lni-heart"></i>
-              </div>
-              <h3>Healthcare</h3>
-              <p>(3235 jobs)</p>
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-6 col-xs-12 f-category border-bottom-0">
-            <a href="browse-jobs.html">
-              <div class="icon bg-color-7">
-               <i class="lni-funnel"></i>
-              </div> 
-              <h3>Science</h3>
-              <p>(1800 jobs)</p> 
-            </a>
-          </div>            
-          <div class="col-lg-3 col-md-6 col-xs-12 f-category border-right-0 border-bottom-0">
-            <a href="browse-jobs.html">
-              <div class="icon bg-color-8">
-               <i class="lni-cup"></i>
-              </div>
-              <h3>Food Services</h3>
-              <p>(4286 jobs)</p>
-            </a>
-          </div>
-        </div>
+          <h3>{{ category.name }}</h3>
+          <p>( jobs)</p>
+        </a>
       </div>
-    </section>
-    <!-- Category Section End -->  
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- Category Section End -->
+
+
+
+
+    <!-- Category Section Start -->
+<!--&lt;!&ndash; Category Section Start &ndash;&gt;-->
+<!--<section class="category section bg-gray">-->
+<!--  <div class="container">-->
+<!--    <div class="section-header">-->
+<!--      <h2 class="section-title">Browse Categories</h2>-->
+<!--      <p>Most popular categories of portal, sorted by popularity</p>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--      <div class="col-lg-3 col-md-6 col-xs-12 f-category">-->
+<!--        <a href="{% url 'browse_jobs' 'finance' %}">-->
+<!--          <div class="icon bg-color-1">-->
+<!--            <i class="lni-home"></i>-->
+<!--          </div>-->
+<!--          <h3>Finance</h3>-->
+<!--          <p>({{ finance_count }} jobs)</p>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      <div class="col-lg-3 col-md-6 col-xs-12 f-category">-->
+<!--        <a href="{% url 'browse_jobs' 'marketing' %}">-->
+<!--          <div class="icon bg-color-2">-->
+<!--           <i class="lni-world"></i>-->
+<!--          </div>-->
+<!--          <h3>Sale/Marketing</h3>-->
+<!--          <p>({{ marketing_count }} jobs)</p>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      <div class="col-lg-3 col-md-6 col-xs-12 f-category">-->
+<!--        <a href="{% url 'browse_jobs' 'education' %}">-->
+<!--          <div class="icon bg-color-3">-->
+<!--           <i class="lni-book"></i>-->
+<!--          </div>-->
+<!--          <h3>Education/Training</h3>-->
+<!--          <p>({{ education_count }} jobs)</p>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      <div class="col-lg-3 col-md-6 col-xs-12 f-category border-right-0">-->
+<!--        <a href="{% url 'browse_jobs' 'technolgy' %}">-->
+<!--          <div class="icon bg-color-4">-->
+<!--           <i class="lni-display"></i>-->
+<!--          </div>-->
+<!--          <h3>Technology</h3>-->
+<!--          <p>({{ technology_count }} jobs)</p>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      <div class="col-lg-3 col-md-6 col-xs-12 f-category border-bottom-0">-->
+<!--        <a href="{% url 'browse_jobs' 'design' %}">-->
+<!--          <div class="icon bg-color-5">-->
+<!--            <i class="lni-brush"></i>-->
+<!--          </div>-->
+<!--          <h3>Art/Design</h3>-->
+<!--          <p>({{ design_count }} jobs)</p>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      <div class="col-lg-3 col-md-6 col-xs-12 f-category border-bottom-0">-->
+<!--        <a href="{% url 'browse_jobs' 'healthcare' %}">-->
+<!--          <div class="icon bg-color-6">-->
+<!--          <i class="lni-heart"></i>-->
+<!--          </div>-->
+<!--          <h3>Healthcare</h3>-->
+<!--          <p>({{ healthcare_count }} jobs)</p>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      <div class="col-lg-3 col-md-6 col-xs-12 f-category border-bottom-0">-->
+<!--        <a href="{% url 'browse_jobs' 'science' %}">-->
+<!--          <div class="icon bg-color-7">-->
+<!--           <i class="lni-funnel"></i>-->
+<!--          </div>-->
+<!--          <h3>Science</h3>-->
+<!--          <p>({{ science_count }} jobs)</p>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      <div class="col-lg-3 col-md-6 col-xs-12 f-category border-right-0 border-bottom-0">-->
+<!--        <a href="{% url 'browse_jobs' 'food_services' %}">-->
+<!--          <div class="icon bg-color-8">-->
+<!--           <i class="lni-cup"></i>-->
+<!--          </div>-->
+<!--          <h3>Food Services</h3>-->
+<!--          <p>({{ category.food_services }} jobs)</p>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+<!-- Category Section End -->
+
+
+
+
+
+
+<!--    <section class="category section bg-gray">-->
+<!--      <div class="container">-->
+<!--        <div class="section-header">  -->
+<!--          <h2 class="section-title">Browse Categories</h2>-->
+<!--          <p>Most popular categories of portal, sorted by popularity</p>-->
+<!--        </div>-->
+<!--        <div class="row">   -->
+<!--          <div class="col-lg-3 col-md-6 col-xs-12 f-category">-->
+<!--            <a href="browse-jobs.html">-->
+<!--              <div class="icon bg-color-1">-->
+<!--                <i class="lni-home"></i>-->
+<!--              </div>-->
+<!--              <h3>Finance</h3>-->
+<!--              <p>(4286 jobs)</p>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--          <div class="col-lg-3 col-md-6 col-xs-12 f-category">-->
+<!--            <a href="browse-jobs.html">-->
+<!--              <div class="icon bg-color-2">-->
+<!--               <i class="lni-world"></i>-->
+<!--              </div>-->
+<!--              <h3>Sale/Markting</h3>-->
+<!--              <p>(2000 jobs)</p>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--          <div class="col-lg-3 col-md-6 col-xs-12 f-category">-->
+<!--            <a href="browse-jobs.html">-->
+<!--              <div class="icon bg-color-3">-->
+<!--               <i class="lni-book"></i>-->
+<!--              </div>-->
+<!--              <h3>Education/Training</h3>-->
+<!--              <p>(1450 jobs)</p>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--          <div class="col-lg-3 col-md-6 col-xs-12 f-category border-right-0">-->
+<!--            <a href="browse-jobs.html">-->
+<!--              <div class="icon bg-color-4">-->
+<!--               <i class="lni-display"></i>-->
+<!--              </div>-->
+<!--              <h3>Technologies</h3>-->
+<!--              <p>(5100 jobs)</p>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--          <div class="col-lg-3 col-md-6 col-xs-12 f-category border-bottom-0">-->
+<!--            <a href="browse-jobs.html">-->
+<!--              <div class="icon bg-color-5">-->
+<!--                <i class="lni-brush"></i>-->
+<!--              </div>-->
+<!--              <h3>Art/Design</h3>-->
+<!--              <p>(5079 jobs)</p>-->
+<!--            </a>-->
+<!--          </div>            -->
+<!--          <div class="col-lg-3 col-md-6 col-xs-12 f-category border-bottom-0">-->
+<!--            <a href="browse-jobs.html">-->
+<!--              <div class="icon bg-color-6">-->
+<!--              <i class="lni-heart"></i>-->
+<!--              </div>-->
+<!--              <h3>Healthcare</h3>-->
+<!--              <p>(3235 jobs)</p>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--          <div class="col-lg-3 col-md-6 col-xs-12 f-category border-bottom-0">-->
+<!--            <a href="browse-jobs.html">-->
+<!--              <div class="icon bg-color-7">-->
+<!--               <i class="lni-funnel"></i>-->
+<!--              </div> -->
+<!--              <h3>Science</h3>-->
+<!--              <p>(1800 jobs)</p> -->
+<!--            </a>-->
+<!--          </div>            -->
+<!--          <div class="col-lg-3 col-md-6 col-xs-12 f-category border-right-0 border-bottom-0">-->
+<!--            <a href="browse-jobs.html">-->
+<!--              <div class="icon bg-color-8">-->
+<!--               <i class="lni-cup"></i>-->
+<!--              </div>-->
+<!--              <h3>Food Services</h3>-->
+<!--              <p>(4286 jobs)</p>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
+<!--    &lt;!&ndash; Category Section End &ndash;&gt;  -->
 
 
     <!-- Browse jobs Section Start -->

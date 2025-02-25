@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.forms import modelformset_factory
 from web_app.models import *
@@ -13,6 +13,9 @@ def index(request):
     jobs = list(Job.objects.all())  # Get all houses as a list
     random.shuffle(jobs)  # Shuffle the list randomly
 
+    categories = Category.objects.all()  # Fetch all categories
+    category_counts = {category.name: Job.objects.filter(category=category).count() for category in categories}
+
     # Split skills in the view
     for job in jobs:
         job.skills_list = job.skills_required.split(",") if job.skills_required else []
@@ -24,9 +27,9 @@ def index(request):
         # get profile information
         profile, created = Profile.objects.get_or_create(user=request.user)
 
-        return render(request, 'index.html', {'user': user, 'profile': profile , 'jobs': jobs})
+        return render(request, 'index.html', {'user': user, 'profile': profile , 'jobs': jobs,  'categories': categories, 'category_counts': category_counts  })
     else:
-        return render(request, 'index.html', {'jobs': jobs})
+        return render(request, 'index.html', {'jobs': jobs, 'categories': categories, 'category_counts': category_counts })
     
 
 def profile_view(request):
@@ -642,28 +645,40 @@ def add_job(request):
 
 def job_details(request,job_id):
     if not request.user.is_authenticated:
-        return redirect('index')
+        return redirect('login')
     
     user = request.user
     users = CustomUser.objects.get(email=user)
 
     profile, created = Profile.objects.get_or_create(user=request.user)
-
     job = Job.objects.get(id=job_id)
 
     # random_objects = Job.objects.order_by('?')[:10]  # Fetch 10 random objects
     random_objects = Job.objects.order_by('?') # Fetch 10 random objects
-
-
-
     skills_list = job.skills_required.split(',') if job.skills_required else []
-
 
     return render(request, 'job_details.html', {'job': job,'skills':skills_list, 'user': users, 'profile': profile, 'random': random_objects})
 
-    
 
-    
+def browse_jobs(request, category_name):
+    # if request.user.is_authenticated:
+    #     user = request.user
+    #     users = CustomUser.objects.get(email=user)
+    #
+    #     # get profile information
+    #     profile, created = Profile.objects.get_or_create(user=request.user)
+    #
+    #     return render(request, 'browse_jobs.html', {'user': user, 'profile': profile})
+    # Convert category_name to match the JOB_CATEGORY_CHOICES keys
+    category = get_object_or_404(Category, name=category_name)
+    jobs = Job.objects.filter(category=category)
+
+    context = {
+            'category': category,
+            'jobs': jobs
+    }
+
+    return render(request, 'browse_jobs.html', context)
 
     
 

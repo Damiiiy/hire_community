@@ -58,27 +58,31 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+
+
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    icon_class = models.CharField(max_length=50, help_text="CSS class for icon (e.g., 'lni-home')")
+
 
 class Job(models.Model):
-    JOB_CATEGORY_CHOICES = [
-        ('technolgy', 'Technology'),
-        ('design', 'Art/Design'),
-        ('marketing', 'Sale/Marketing'),
-        ('finance', 'Finance'),
-        ('education', 'Education/Training'),
-        ('healthcare', 'Healthcare'),
-        ('science', 'Science'),
-        ('food_services', 'Food Services')
-    ]
+    # JOB_CATEGORY_CHOICES = [
+    #     ('technology', 'Technology'),
+    #     ('design', 'Art/Design'),
+    #     ('marketing', 'Sale/Marketing'),
+    #     ('finance', 'Finance'),
+    #     ('education', 'Education/Training'),
+    #     ('healthcare', 'Healthcare'),
+    #     ('science', 'Science'),
+    #     ('food_services', 'Food Services')
+    # ]
 
     JOB_TYPE_CHOICES = [
         ('full_time', 'Full Time'),
         ('part_time', 'Part Time'),
     ]
 
-    category = models.CharField(max_length=50, choices=JOB_CATEGORY_CHOICES)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="jobs", default=None)
     title = models.CharField(max_length=255)
     job_tag = models.CharField(max_length=255, default="General")  # Must have a default value
     description = models.TextField()

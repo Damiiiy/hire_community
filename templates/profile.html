@@ -23,9 +23,8 @@
   </head>
   
   <body>
-
     <!-- Header Section Start -->
-    <header id="home" class="hero-area"> 
+    <header id="home" class="hero-area">
       <!-- Navbar Start -->
       <nav class="navbar navbar-expand-lg fixed-top scrolling-navbar">
         <div class="container">
@@ -38,10 +37,19 @@
                 <span class="lni-menu"></span>
                 <span class="lni-menu"></span>
               </button>
-              {% comment %} <a href="{% url 'index' %}" class="navbar-brand">Sanyataya</a> {% endcomment %}
               <a href="{% url 'index' %}" class="navbar-brand"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a>
-
             </div>
+<!--            <div class="navbar-header">-->
+<!--              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--                <span class="lni-menu"></span>-->
+<!--                <span class="lni-menu"></span>-->
+<!--                <span class="lni-menu"></span>-->
+<!--              </button>-->
+<!--&lt;!&ndash;              <a href="{% url 'index' %}" class="navbar-brand">Sanyataya</a> &ndash;&gt;-->
+<!--              <a href="{% url 'index' %}" class="navbar-brand"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a>-->
+<!--            </div>-->
+
             <div class="collapse navbar-collapse" id="main-navbar">
               <ul class="navbar-nav mr-auto w-100 justify-content-end">
                 <li class="nav-item">
@@ -49,7 +57,6 @@
                     Home
                   </a>
                 </li>
-      
                 <li class="button-group">
                   <a href="{% url 'logout' %}" class="button btn btn-common">Sign Out</a>
                 </li>
@@ -57,9 +64,7 @@
             </div>
           </div>
         </div>
-        <div class="mobile-menu" data-logo="{% static "img/Sanyataya1.png" %}4" >
-          {% comment %} <a href="{% url 'index' %}"><img src="{% static "img/Sanyataya1.png" %}" alt="" style="height: 50px; width: 150px; mix-blend-mode: multiply;"></a> {% endcomment %}
-        </div>
+        <div class="mobile-menu" data-logo="{% static 'img/Sanyataya1.png' %}"></div>
       </nav>
       <!-- Navbar End -->            
     </header>
@@ -71,34 +76,34 @@
         <div class="row">         
           <div class="col-lg-12">
               <!-- Profile widget --> 
-              <div class="bg-secondary shadow rounded overflow-hidden">
-                  <div class="px-4 pt-3 pb-4 cover">
-                      <div class="media align-items-end profile-head">
-                          <div class="profile mr-3">
+              <div class="shadow rounded overflow-hidden" style="background: linear-gradient(135deg, #5D6D7E, #34495E);">
+                  <div class="px-4 pt-4 pb-4 cover">
+                      <div class="media profile-head">
+                          <div class="profile auto">
                               <img src="media/{{profile.profile_picture}}" alt="..." width="140" class="rounded mb-2 img-thumbnail" />
-                              {% comment %} <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a> {% endcomment %}
-                          </div> 
-                          <div class="media-body mb-5 text-white">
-                              <h4 class="mt-0 mb-0 d-flex justify-content-end">{{user.first_name}} {{user.last_name}}</h4> 
+                          </div>
+                          <div class="media-body mb-3 " style="color:black; font-weight: bold;">
+                              <h6 class="mt-0 mb-0 d-flex justify-content-end ">{{user.first_name}} {{user.last_name}}</h6>
                               <p class=" mb-4 d-flex justify-content-end ">
                                   <i class="lni-map-marker mr-2 mt-2 "></i>{{profile.location}}
                               </p>
                           </div>
                       </div>
                   </div>
-                  <div class="bg-light p-4 d-flex justify-content-end text-center">
-                      {% comment %} <ul class="list-inline mb-0">
-                          <li class="list-inline-item">
-                              <h5 class="font-weight-bold mb-0 d-block">215</h5><small class="text-muted"><i class="fas fa-image mr-1"></i>Photos</small>
-                          </li>
-                          <li class="list-inline-item">
-                              <h5 class="font-weight-bold mb-0 d-block">745</h5><small class="text-muted"><i class="fas fa-user mr-1"></i>Followers</small>
-                          </li> 
-                          <li class="list-inline-item">
-                              <h5 class="font-weight-bold mb-0 d-block">340</h5><small class="text-muted"><i class="fas fa-user mr-1"></i>Following</small>
-                          </li>
-                      </ul> {% endcomment %}
-                  </div> 
+<!--                  <div class="bg-light p-4 d-flex justify-content-end text-center">-->
+<!--                      {% comment %} <ul class="list-inline mb-0">-->
+<!--                          <li class="list-inline-item">-->
+<!--                              <h5 class="font-weight-bold mb-0 d-block">215</h5><small class="text-muted"><i class="fas fa-image mr-1"></i>Photos</small>-->
+<!--                          </li>-->
+<!--                          <li class="list-inline-item">-->
+<!--                              <h5 class="font-weight-bold mb-0 d-block">745</h5><small class="text-muted"><i class="fas fa-user mr-1"></i>Followers</small>-->
+<!--                          </li> -->
+<!--                          <li class="list-inline-item">-->
+<!--                              <h5 class="font-weight-bold mb-0 d-block">340</h5><small class="text-muted"><i class="fas fa-user mr-1"></i>Following</small>-->
+<!--                          </li>-->
+<!--                      </ul> {% endcomment %}-->
+<!--                  </div>-->
+              </div>
           </div>
         </div>
       </div>
