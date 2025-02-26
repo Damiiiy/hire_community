@@ -1,11 +1,5 @@
 /*
-Theme Name:       JobX - Bootstrap HTML5 Job Portal Template
-Author:           UIdeck
-Author URI:       http://uideck.com
-Text Domain:      UIdeck
-Domain Path:      /languages/
 
-JS INDEX
 ================================================
 1. preloader js
 2. scroll to top js
@@ -59,7 +53,7 @@ JS INDEX
         label:'',
         closedSymbol:'<i class="lni-chevron-right"><i/>',
         openedSymbol:'<i class="lni-chevron-down"><i/>',
-        brand:'<a href=""><img src="'+logo_path+'" class="img-responsive" alt="logo"></a>'
+        brand:'<img src="'+logo_path+'" class="img-responsive" alt="logo" style="height: 50px; width: 150px; mix-blend-mode: multiply;">'
     });
       
     /*====================================

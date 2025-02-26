@@ -108,6 +108,49 @@ def manage_application(request):
         return redirect('index')
 
 
+def post_skilled_job(request):
+    if request.user.is_authenticated:
+        user = request.user.email
+        users = CustomUser.objects.get(email=user)
+
+        # get profile information
+        profile, created = Profile.objects.get_or_create(user=request.user)
+
+        if profile.user_type == "employer":
+            form = JobForm()
+            # if request.method == 'POST':
+            #     form = JobForm(request.POST, request.FILES)
+            #     if form.is_valid():
+            #         try:
+            #             new_job = Job(
+            #                 category=form.cleaned_data['category'].title(),
+            #                 title=form.cleaned_data['title'].title(),
+            #                 description=form.cleaned_data['description'].capitalize(),
+            #                 employer=users,
+            #                 location=form.cleaned_data['location'].title(),
+            #                 salary=form.cleaned_data['salary'],
+            #                 skills_required=form.cleaned_data['skills_required'].title(),
+            #                 job_tag=form.cleaned_data['job_tag'].title(),
+            #                 job_type=form.cleaned_data['job_type'].title(),
+            #                 cover_img=form.cleaned_data['cover_img']
+            #             )
+            #
+            #             new_job.save()
+            #             messages.success(request, "Job created successful!")
+            #
+            #             return redirect('profile')
+            #         except Exception:
+            #             messages.error(request, form.errors)
+            #
+            #     else:
+            #         messages.error(request, form.errors)
+            #
+            # return render(request, 'profile.html', {'user': users, 'profile': profile, 'form': form})
+        return render(request, 'add-job.html', {'user': users, 'profile': profile, 'form': form })
+    else:
+        return redirect('login')
+
+
 def login_view(request):
     if request.user.is_authenticated:
         return redirect('index')
@@ -229,70 +272,6 @@ def Profile_sign_up(request):
 
     return render(request, 'signup2.html', {'form': form})
 
-
-#
-# def User_sign_up(request):
-#     if request.method == "POST":
-#         form = UserForm(request.POST)
-#         if form.is_valid():
-#
-#             # Save form data to session and proceed to Step 2
-#             request.session['user_form_data'] = form.cleaned_data
-#             return redirect('profile-registration')
-#         else:
-#             messages.error(request, form.errors)
-#     else:
-#         form = UserForm()
-#     return render(request, 'signup.html', {'form': form})
-#
-# def Profile_sign_up(request):
-#     user_form_data = request.session.get('user_form_data')
-#     if not user_form_data:
-#         # return redirect('signup')  # Redirect to Step 1 if no data in session
-#         return render(request, 'signup.html', {'form': form, 'error': 'False'})
-#
-#     if request.method == 'POST':
-#         form = ProfileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             # Create User and Profile instances
-#             user = CustomUser(
-#                 first_name=user_form_data['first_name'].capitalize(),
-#                 last_name=user_form_data['last_name'].capitalize(),
-#                 email=user_form_data['email'],
-#                 password=user_form_data['password1']
-#
-#             )
-#
-#
-#
-#             # Manually create and save the Profile instance
-#             profile = Profile(
-#                 user=user,
-#                 user_type=form.cleaned_data['user_type'],
-#                 bio=form.cleaned_data['bio'].capitalize(),
-#                 location=form.cleaned_data['location'].title(),
-#                 profile_picture=form.cleaned_data['profile_picture'],
-#             )
-#
-#             i = CustomUser.objects.all()
-#             if user_form_data in i:
-#                 messages.error(request, "User Exist ALready")
-#                 return render(request, 'signup2.html', {'form': form})
-#             else:
-#                 user.save()
-#                 profile.save()
-#                 # Log in the user and clear session data
-#                 # login(request, user)
-#                 request.session.pop('user_form_data', None)  # Clear session after registration
-#                 messages.success(request, "Registration successful!")
-#                 return render(request, 'signup2.html', {'form': form})
-#
-#         else:
-#             messages.error(request, form.errors)
-#     else:
-#         form = ProfileForm()
-#     return render(request, 'signup2.html', {'form': form})
-#
 
 
 ################## RESUME DATA VIEW ##################
@@ -641,7 +620,7 @@ def add_job(request):
     else:
         form = JobForm()
 
-    return render(request, 'profile.html', {'form': form, 'user': users, 'profile': profile})
+    return render(request, 'add-job.html', {'form': form, 'user': users, 'profile': profile})
 
 def job_details(request,job_id):
     if not request.user.is_authenticated:

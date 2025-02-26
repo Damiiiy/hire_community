@@ -7,7 +7,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
      <meta name="author" content="UIdeck">
      <title>Sanyataya - {{profile.user_type}} Profile</title>
- 
+
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
      <link rel="stylesheet" href="{% static 'css/line-icons.css' %}">
@@ -15,12 +15,12 @@
      <link rel="stylesheet" href="{% static 'css/owl.theme.default.css' %}">
      <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}">
      <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-     <link rel="stylesheet" href="{% static 'css/main.css' %}">    
+     <link rel="stylesheet" href="{% static 'css/main.css' %}">
      <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
- 
+
 
   </head>
-  
+
   <body>
     <!-- Header Section Start -->
     <header id="home" class="hero-area">
@@ -54,21 +54,21 @@
         </div>
         <div class="mobile-menu" data-logo="{% static 'img/Sanyataya1.png' %}"></div>
       </nav>
-      <!-- Navbar End -->            
+      <!-- Navbar End -->
     </header>
-    <!-- Header Section End --> 
+    <!-- Header Section End -->
 
     <!-- Page Header Start -->
     <div class="page-header">
       <div class="container">
-        <div class="row">         
+        <div class="row">
           <div class="col-lg-12">
-              <!-- Profile widget --> 
+              <!-- Profile widget -->
               <div class="shadow rounded overflow-hidden" style="background: linear-gradient(135deg, #5D6D7E, #34495E);">
                   <div class="px-4 pt-4 pb-4 cover">
                       <div class="media profile-head">
                           <div class="profile auto">
-                              <img src="media/{{profile.profile_picture}}" alt="..." width="140" class="rounded mb-2 img-thumbnail" />
+                              <img src="{{profile.profile_picture.url}}" alt="..." width="140" class="rounded mb-2 img-thumbnail" />
                           </div>
                           <div class="media-body mb-3 " style="color:black; font-weight: bold;">
                               <h6 class="h5 mt-0 mb-0 d-flex justify-content-end ">{{user.first_name}} {{user.last_name}}</h6>
@@ -83,11 +83,11 @@
         </div>
       </div>
     </div>
-    <!-- Page Header End --> 
+    <!-- Page Header End -->
 
     <!-- Start Content -->
     <div class="section">
-      <div class="container">        
+      <div class="container">
         <div class="row">
           {% if profile.user_type == 'job_seeker' %}
             <div class="col-lg-4 col-md-4 col-xs-12">
@@ -100,29 +100,28 @@
                   <li><a href="{% url 'manage_application' %}">Manage Applications</a></li>
                   <li><a href="{% url 'resume_basic' %}">Add/Edit Resume</a></li>
                   {% comment %} <li><a href="change-password.html">Change Password</a></li> {% endcomment %}
-
                 </ul>
               </div>
-            
-          
+
+
           {% else %}
-          <div class="col-lg-4 col-md-4 col-xs-12">
+         <div class="col-lg-4 col-md-4 col-xs-12">
             <div class="right-sideabr">
               <h4>Manage Account</h4>
               <ul class="list-item">
-                <li><a class="active" href="{% url 'profile' %}">Add Job</a></li>
+                <li><a class="active" href="{% url 'profile' %}">Profile Information</a></li>
                 {% comment %} <li><a href="bookmarked.html">Bookmarked Jobs</a></li> {% endcomment %}
                 {% comment %} <li><a href="notifications.html">Notifications <span class="notinumber">2</span></a></li> {% endcomment %}
                 <li><a href="{% url 'manage_application' %}">My Jobs</a></li>
                 {% comment %} <li><a href="{% url 'resume_basic' %}">Add/Edit Resume</a></li> {% endcomment %}
                 {% comment %} <li><a href="change-password.html">Change Password</a></li> {% endcomment %}
                 <li class="nav-item dropdown active">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Post Jobs
                   </a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{% url 'skilled-jobs' %}">Post Skilled Job</a></li>
-                    <li><a class="dropdown-item" href="">Post Unskilled Jobs</a></li>
+                    <li><a class="dropdown-item" href="" >Post Unskilled Jobs</a></li>
                   </ul>
                 </li>
               </ul>
@@ -132,7 +131,7 @@
           <div class="col-lg-8 col-md-8 col-xs-12">
             <div class="inner-box my-resume">
 
-              {% if profile.user_type == 'job_seeker' %} 
+              {% if profile.user_type == 'job_seeker' %}
 
                   <div class="author-resume">
                     <div class="thumb">
@@ -144,13 +143,13 @@
                       <p><span class="address"><i class="lni-map-marker"></i>{{resume.location}}</span></p>
                       <p><span class="email"><i class="lni-envelope"></i> {{resume.email}}</p>
 
-                      <div class="social-link">  
+                      <div class="social-link">
                         <a href="#" class="Twitter"><i class="lni-twitter-filled"></i></a>
                         <a href="#" class="facebook"><i class="lni-facebook-filled"></i></a>
                         <a href="#" class="google"><i class="lni-google-plus"></i></a>
                         <a href="#" class="linkedin"><i class="lni-linkedin-fill"></i></a>
                       </div>
-                    </div>                  
+                    </div>
                   </div>
                   <div class="about-me item">
                     <h3>About Me</h3>
@@ -174,9 +173,9 @@
                       <p>{{c.degree}} of {{ c.field_of_study}}</p>
                       <span class="date">{{c.start_year}}-{{c.end_year}}</span>
                       <br>
-                  
+
                     {% endfor %}
-                  
+
                   </div>
 
                   <div class="skills item">
@@ -185,9 +184,9 @@
                       <h4>{{c.skill_name}} - {{c.proficiency}}%</h4>
                     {% endfor %}
                   </div>
-                  
-              {% else %} 
-              
+
+              {% else %}
+
                   <div class="post-job box">
                     <h3 class="job-title">Post a new Job</h3>
                     {% if messages %}
@@ -210,18 +209,18 @@
                         <label class="control-label">Company</label>
                         {{ form.company_name}}
                         {% comment %} <input type="text" class="form-control" placeholder="Write company name"> {% endcomment %}
-                      </div> 
+                      </div>
                       <div class="form-group">
                         <label class="control-label">Location</label>
                         {{ form.location }}
                         {% comment %} <input type="text" class="form-control" placeholder="e.g.London"> {% endcomment %}
-                      </div> 
+                      </div>
 
                       <div class="form-group">
                         <label class="control-label">Salary</label>
                         {{ form.salary }}
                         {% comment %} <input type="text" class="form-control" placeholder="e.g.London"> {% endcomment %}
-                      </div> 
+                      </div>
 
                       <div class="form-group">
                         <label class="control-label">Category</label>
@@ -246,7 +245,7 @@
 
                         {% comment %} <input type="text" class="form-control" placeholder="e.g.PHP,Social Media,Management"> {% endcomment %}
                         <p class="note">Comma separate tags for this job.</p>
-                      </div>  
+                      </div>
 
                       <section id="editor">
                         <div class="form-group">
@@ -255,13 +254,13 @@
                         {% comment %} <textarea class="form-control" rows="5" id="comment"></textarea> {% endcomment %}
                       </div>
                       </section>
-                  
+
                       <div class="form-group">
                         <label class="control-label">Job Type</label>
                         {{ form.job_type}}
                         {% comment %} <input type="text" class="form-control" placeholder="Enter the name of the company"> {% endcomment %}
-                      </div> 
-                      
+                      </div>
+
                       <div class="custom-file mb-3">
                         {{ form.cover_img }}
                         {% comment %} <input type="file" class="custom-file-input" id="validatedCustomFile" required> {% endcomment %}
@@ -273,15 +272,15 @@
                   </div>
                 </div>
               </div>
-                  
+
 
               {% endif %}
-              
+
 
             </div>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
     <!-- End Content -->
 
@@ -318,7 +317,7 @@
             <div class="col-lg-3 col-md-4 col-xs-12">
               <div class="widget">
                 <h3 class="block-title">Subscribe Now</h3>
-                <p>Sed consequat sapien faus quam bibendum convallis.</p> 
+                <p>Sed consequat sapien faus quam bibendum convallis.</p>
                 <form method="post" id="subscribe-form" name="subscribe-form" class="validate">
                   <div class="form-group is-empty">
                     <input type="email" value="" name="Email" class="form-control" id="EMAIL" placeholder="Enter Email..." required="">
@@ -331,14 +330,14 @@
                   <li><a class="twitter" href="#"><i class="lni-twitter-filled"></i></a></li>
                   <li><a class="linkedin" href="#"><i class="lni-linkedin-fill"></i></a></li>
                   <li><a class="google-plus" href="#"><i class="lni-google-plus"></i></a></li>
-                </ul>        
+                </ul>
               </div>
             </div>
           </div>
         </div>
       </section>
       <!-- Footer area End -->
-      
+
       <!-- Copyright Start  -->
 
     <div id="copyright">
@@ -347,19 +346,19 @@
             <div class="col-md-12">
               <div class="site-info text-center">
                 <p> Sanyataya</p>
-              </div>     
+              </div>
             </div>
           </div>
         </div>
       </div>
       <!-- Copyright End -->
     </footer>
-    <!-- Footer Section End -->  
+    <!-- Footer Section End -->
 
     <!-- Go To Top Link -->
     <a href="#" class="back-to-top">
       <i class="lni-arrow-up"></i>
-    </a> 
+    </a>
 
     <!-- Preloader -->
     <div id="preloader">
@@ -371,13 +370,13 @@
     <script src="{% static 'js/jquery-min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
 
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>     
-    <script src="{% static 'js/jquery.slicknav.js' %}"></script>     
-    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>      
-    <script src="{% static 'js/waypoints.min.js' %}"></script>     
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
     <script src="{% static 'js/form-validator.min.js' %}"></script>
-    <script src="{% static 'js/contact-form-script.js' %}"></script>   
+    <script src="{% static 'js/contact-form-script.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-    
+
   </body>
 </html>
