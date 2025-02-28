@@ -102,6 +102,8 @@
                   {% comment %} <li><a href="change-password.html">Change Password</a></li> {% endcomment %}
                 </ul>
               </div>
+            </div>
+
           {% else %}
 <!--                       ############### Employer Sidebar ################ -->
             <div class="col-lg-4 col-md-4 col-xs-12">
@@ -123,9 +125,9 @@
               </div>
             </div>
           {% endif %}
+            <!--#################### Page Content for  Job Seeker (Resume) ###############################-->
           <div class="col-lg-8 col-md-8 col-xs-12">
             <div class="inner-box my-resume">
-<!--                #################### Page Content for  Job Seeker (Resume) ###############################-->
 
               {% if profile.user_type == 'job_seeker' %}
                   <div class="author-resume">
@@ -175,85 +177,81 @@
                     {% endfor %}
                   </div>
               {% else %}
-
+            </div>
+          </div>
         <!--  #######################  Page content  ############################-->
-                <div class="post-job box">
-                    <h3 class="job-title">My Profile Information</h3>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6 bio-row">
-                            <p><strong>First Name:</strong> Camila</p>
-                          </div>
-                          <div class="col-md-6 bio-row">
-                            <p><strong>Last Name:</strong> Smith</p>
-                          </div>
-                          <div class="col-md-6 bio-row">
-                            <p><strong>Country:</strong> Australia</p>
-                          </div>
-                          <div class="col-md-6 bio-row">
-                            <p><strong>Birthday:</strong> 13 July 1983</p>
-                          </div>
-                          <div class="col-md-6 bio-row">
-                            <p><strong>Occupation:</strong> UI Designer</p>
-                          </div>
-                          <div class="col-md-6 bio-row">
-                            <p><strong>Email:</strong> jsmith@flatlab.com</p>
-                          </div>
-                          <div class="col-md-6 bio-row">
-                            <p><strong>Mobile:</strong> (12) 03 4567890</p>
-                          </div>
-                          <div class="col-md-6 bio-row">
-                            <p><strong>Phone:</strong> 88 (02) 123456</p>
-                          </div>
+            <div class="post-job box">
+                <h3 class="job-title">My Profile Information</h3>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 bio-row">
+                            <p><strong>First Name:</strong> {{ user.first_name}}</p>
                         </div>
-                    </div>
-                </div>
-<!--              </div>-->
-              {% endif %}
-
-
-<!--                <div class="container">-->
-                    <div class="profile-content post-job box">
-                        <br><br>
-                        <h3 class="job-title text-center">Recent Activities</h3>
-                        <div class="tab-pane fade active show" id="profile-post">
-                            <ul class="timeline">
-                                {% for activity in activities %}
-                                <li class="timeline-item">
-                                    <div class="timeline-time">
-                                        <span class="date">{{ activity.timestamp|date:"F d, Y" }}</span>
-                                        <span class="time">{{ activity.timestamp|time:"H:i" }}</span>
-                                    </div>
-                                    <div class="timeline-icon">
-                                        <a href="javascript:;">&nbsp;</a>
-                                    </div>
-                                    <div class="timeline-body">
-                                        <div class="timeline-content">
-                                            <p>{{ activity.action }}</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                {% empty %}
-                                <li class="timeline-item">
-                                    <div class="timeline-body text-center">
-                                        <p>No recent activities found.</p>
-                                    </div>
-                                </li>
-                                {% endfor %}
-                            </ul>
+                        <div class="col-md-6 bio-row">
+                            <p><strong>Last Name:</strong> {{ user.last_name}}</p>
+                        </div>
+                        <div class="col-md-6 bio-row">
+                            <p><strong>Birthday:</strong> 13 July 1983</p>
+                        </div>
+                        <div class="col-md-6 bio-row">
+                            <p><strong>Occupation:</strong> UI Designer</p>
+                        </div>
+                        <div class="col-md-6 bio-row">
+                            <p><strong>Email:</strong> {{ user.email}}</p>
+                        </div>
+                        <div class="col-md-6 bio-row">
+                            <p><strong>Mobile:</strong> (12) 03 4567890</p>
+                        </div>
+                        <div class="col-md-6 bio-row">
+                            <p><strong>Phone:</strong> 88 (02) 123456</p>
                         </div>
                     </div>
                 </div>
             </div>
-          </div>
-      </div>      
+              {% endif %}
+
+
+<!--                <div class="container">-->
+            <div class="profile-content post-job box">
+                <br><br>
+                <h3 class="job-title text-center">Recent Activities</h3>
+                <div class="tab-pane fade active show" id="profile-post">
+                    <ul class="timeline">
+                        {% for activity in activities %}
+                        <li class="timeline-item">
+                            <div class="timeline-time">
+                                <span class="date">{{ activity.timestamp|date:"F d, Y" }}</span>
+                                <span class="time">{{ activity.timestamp|time:"H:i" }}</span>
+                            </div>
+                            <div class="timeline-icon">
+                                <a href="javascript:;">&nbsp;</a>
+                            </div>
+                            <div class="timeline-body">
+                                <div class="timeline-content">
+                                    <p>{{ activity.action }}</p>
+                                </div>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li class="timeline-item">
+                            <div class="timeline-body text-center">
+                                <p>No recent activities found.</p>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
     </div>
     <!-- End Content -->
 
     <!-- Footer Section Start -->
-    <footer>
-      <!-- Footer Area Start -->
-      <section class="footer-Content">
+  <footer>
+      <!-- Footer Area Start --><section class="footer-Content">
         <div class="container">
           <div class="row">
             <div class="col-lg-3 col-md-3 col-xs-12">
@@ -283,7 +281,7 @@
             <div class="col-lg-3 col-md-4 col-xs-12">
               <div class="widget">
                 <h3 class="block-title">Subscribe Now</h3>
-                <p>Sed consequat sapien faus quam bibendum convallis.</p> 
+                <p>Sed consequat sapien faus quam bibendum convallis.</p>
                 <form method="post" id="subscribe-form" name="subscribe-form" class="validate">
                   <div class="form-group is-empty">
                     <input type="email" value="" name="Email" class="form-control" id="EMAIL" placeholder="Enter Email..." required="">
@@ -296,7 +294,7 @@
                   <li><a class="twitter" href="#"><i class="lni-twitter-filled"></i></a></li>
                   <li><a class="linkedin" href="#"><i class="lni-linkedin-fill"></i></a></li>
                   <li><a class="google-plus" href="#"><i class="lni-google-plus"></i></a></li>
-                </ul>        
+                </ul>
               </div>
             </div>
           </div>
