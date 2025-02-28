@@ -16,6 +16,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password, **extra_fields)
 
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=30)
@@ -30,6 +31,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
 
 class Profile(models.Model):
     """
@@ -48,6 +50,15 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.email}"
+
+
+class Activity(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="activities")
+    action = models.CharField(max_length=255)  # Description of the activity
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.email} - {self.action} at {self.timestamp}"
 
 
 class Skill(models.Model):
@@ -115,6 +126,9 @@ class Unskilled_job(models.Model):
     )
     cover_img = models.ImageField(upload_to='cover_images/', blank=True, null=True)
 
+
+
+
 class Application(models.Model):
     """
     Applications from job seekers for job postings.
@@ -137,6 +151,7 @@ class Application(models.Model):
 
     def __str__(self):
         return f"{self.applicant.user.username} - {self.job.title}"
+
 
 
 class Message(models.Model):

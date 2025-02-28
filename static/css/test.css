@@ -1,0 +1,241 @@
+/* Ensure Full Width and Responsive Scaling */
+.timeline-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* Keep Timeline Structure */
+.timeline {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+
+.timeline:before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    width: 5px;
+    background: #2d353c;
+    left: 20%;
+    margin-left: -2.5px;
+}
+
+/* Timeline Item */
+.timeline>li {
+    position: relative;
+    min-height: 50px;
+    padding: 20px 0;
+}
+
+/* Time Display */
+.timeline .timeline-time {
+    position: absolute;
+    left: 0;
+    width: 18%;
+    text-align: right;
+    top: 30px;
+}
+
+/* Time and Date Styling */
+.timeline .timeline-time .date,
+.timeline .timeline-time .time {
+    display: block;
+    font-weight: 600;
+}
+
+.timeline .timeline-time .date {
+    line-height: 16px;
+    font-size: 12px;
+}
+
+.timeline .timeline-time .time {
+    line-height: 24px;
+    font-size: 20px;
+    color: #242a30;
+}
+
+/* Timeline Icon */
+.timeline .timeline-icon {
+    left: 15%;
+    position: absolute;
+    width: 10%;
+    text-align: center;
+    top: 40px;
+}
+
+.timeline .timeline-icon a {
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 20px;
+    background: #d9e0e7;
+    line-height: 10px;
+    color: #fff;
+    font-size: 14px;
+    border: 5px solid #2d353c;
+    transition: border-color 0.2s linear;
+}
+
+/* Timeline Content */
+.timeline .timeline-body {
+    margin-left: 23%;
+    margin-right: 17%;
+    background: #fff;
+    position: relative;
+    padding: 20px 25px;
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.timeline .timeline-body:before {
+    content: '';
+    display: block;
+    position: absolute;
+    border: 10px solid transparent;
+    border-right-color: #fff;
+    left: -20px;
+    top: 20px;
+}
+
+/* Header Section */
+.timeline-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e7eb;
+    line-height: 30px;
+}
+
+.timeline-header .userimage {
+    float: left;
+    width: 34px;
+    height: 34px;
+    border-radius: 40px;
+    overflow: hidden;
+    margin: -2px 10px -2px 0;
+}
+
+.timeline-header .username {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.timeline-header .username,
+.timeline-header .username a {
+    color: #2d353c;
+}
+
+/* Content Adjustments */
+.timeline-content {
+    letter-spacing: 0.25px;
+    line-height: 18px;
+    font-size: 13px;
+}
+
+/* Footer Section */
+.timeline-footer {
+    background: #fff;
+    border-top: 1px solid #e2e7ec;
+    padding-top: 15px;
+}
+
+.timeline-footer a {
+    color: #575d63;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.timeline-footer a:hover {
+    color: #2d353c;
+}
+
+/* Comment Box */
+.timeline-comment-box {
+    background: #f2f3f4;
+    margin-left: -25px;
+    margin-right: -25px;
+    padding: 20px 25px;
+}
+
+.timeline-comment-box .user {
+    float: left;
+    width: 34px;
+    height: 34px;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .timeline:before {
+        left: 15%;
+    }
+
+    .timeline .timeline-time {
+        width: 22%;
+    }
+
+    .timeline .timeline-icon {
+        left: 12%;
+    }
+
+    .timeline .timeline-body {
+        margin-left: 26%;
+        margin-right: 10%;
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline:before {
+        left: 10%;
+    }
+
+    .timeline .timeline-time {
+        width: 28%;
+        text-align: left;
+        left: 5%;
+    }
+
+    .timeline .timeline-icon {
+        left: 8%;
+        width: 6%;
+    }
+
+    .timeline .timeline-body {
+        margin-left: 20%;
+        margin-right: 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline:before {
+        display: none;
+    }
+
+    .timeline .timeline-time {
+        position: relative;
+        width: 100%;
+        text-align: left;
+        left: 0;
+        top: 0;
+        margin-bottom: 10px;
+    }
+
+    .timeline .timeline-icon {
+        position: relative;
+        left: 0;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .timeline .timeline-body {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 15px;
+    }
+}

@@ -40,6 +40,8 @@ def profile_view(request):
         # get profile information
         profile, created = Profile.objects.get_or_create(user=request.user)
 
+        activities = Activity.objects.filter(user=request.user).order_by("-timestamp")[:10]  # Get latest 10 activities
+
         # profile = Profile.objects.get(user=request.user)
         if profile.user_type == "job_seeker":
             try:
@@ -87,8 +89,8 @@ def profile_view(request):
 
             
 
-            return render(request, 'profile.html', {'user': users, 'profile':profile, 'form':form})
-        return render(request, 'profile.html', {'user': users, 'profile':profile})
+            return render(request, 'profile.html', {'user': users, 'profile':profile, 'form':form, 'activities': activities})
+        return render(request, 'profile.html', {'user': users, 'profile':profile, 'activities': activities })
     else:
         return redirect('login')
     

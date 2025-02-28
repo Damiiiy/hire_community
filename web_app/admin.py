@@ -14,6 +14,7 @@ admin.site.register(Review)
 admin.site.register(Notification)
 admin.site.register(CustomUser)
 admin.site.register(Category)
+admin.site.register(Activity)
 
 ############################
 

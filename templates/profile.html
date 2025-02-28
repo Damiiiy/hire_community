@@ -15,12 +15,12 @@
      <link rel="stylesheet" href="{% static 'css/owl.theme.default.css' %}">
      <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}">
      <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-     <link rel="stylesheet" href="{% static 'css/main.css' %}">    
+     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+      <link rel="stylesheet" href="{% static 'css/css.css' %}">
      <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
- 
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
   </head>
-  
   <body>
     <!-- Header Section Start -->
     <header id="home" class="hero-area">
@@ -54,7 +54,7 @@
         </div>
         <div class="mobile-menu" data-logo="{% static 'img/Sanyataya1.png' %}"></div>
       </nav>
-      <!-- Navbar End -->            
+                <!-- Navbar End -->
     </header>
     <!-- Header Section End --> 
 
@@ -68,7 +68,7 @@
                   <div class="px-4 pt-4 pb-4 cover">
                       <div class="media profile-head">
                           <div class="profile auto">
-                              <img src="media/{{profile.profile_picture}}" alt="..." width="140" class="rounded mb-2 img-thumbnail" />
+                              <img src="{{profile.profile_picture.url}}" alt="..." width="140" class="rounded mb-2 img-thumbnail" />
                           </div>
                           <div class="media-body mb-3 " style="color:black; font-weight: bold;">
                               <h6 class="h5 mt-0 mb-0 d-flex justify-content-end ">{{user.first_name}} {{user.last_name}}</h6>
@@ -83,12 +83,12 @@
         </div>
       </div>
     </div>
-    <!-- Page Header End --> 
-
+    <!-- Page Header End -->
     <!-- Start Content -->
-    <div class="section">
+    <div class="section bg-light">
       <div class="container">        
         <div class="row">
+            <!--                ############### Job seeker Sidebar ################ -->
           {% if profile.user_type == 'job_seeker' %}
             <div class="col-lg-4 col-md-4 col-xs-12">
               <div class="right-sideabr">
@@ -100,40 +100,34 @@
                   <li><a href="{% url 'manage_application' %}">Manage Applications</a></li>
                   <li><a href="{% url 'resume_basic' %}">Add/Edit Resume</a></li>
                   {% comment %} <li><a href="change-password.html">Change Password</a></li> {% endcomment %}
-
                 </ul>
               </div>
-            
-          
           {% else %}
-          <div class="col-lg-4 col-md-4 col-xs-12">
-            <div class="right-sideabr">
-              <h4>Manage Account</h4>
-              <ul class="list-item">
-                <li><a class="active" href="{% url 'profile' %}">Add Job</a></li>
-                {% comment %} <li><a href="bookmarked.html">Bookmarked Jobs</a></li> {% endcomment %}
-                {% comment %} <li><a href="notifications.html">Notifications <span class="notinumber">2</span></a></li> {% endcomment %}
-                <li><a href="{% url 'manage_application' %}">My Jobs</a></li>
-                {% comment %} <li><a href="{% url 'resume_basic' %}">Add/Edit Resume</a></li> {% endcomment %}
-                {% comment %} <li><a href="change-password.html">Change Password</a></li> {% endcomment %}
-                <li class="nav-item dropdown active">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Post Jobs
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'skilled-jobs' %}">Post Skilled Job</a></li>
-                    <li><a class="dropdown-item" href="">Post Unskilled Jobs</a></li>
-                  </ul>
-                </li>
-              </ul>
+<!--                       ############### Employer Sidebar ################ -->
+            <div class="col-lg-4 col-md-4 col-xs-12">
+              <div class="right-sideabr">
+                <h4>Manage Account</h4>
+                <ul class="list-item">
+                  <li><a class="active" href="{% url 'profile' %}">Profile Information</a></li>
+                  <li><a href="{% url 'manage_application' %}">My Jobs</a></li>
+                  <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Post Jobs
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'skilled-jobs' %}">Post Skilled Job</a></li>
+                      <li><a class="dropdown-item" href="">Post Unskilled Jobs</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
           {% endif %}
-          </div>
           <div class="col-lg-8 col-md-8 col-xs-12">
             <div class="inner-box my-resume">
+<!--                #################### Page Content for  Job Seeker (Resume) ###############################-->
 
-              {% if profile.user_type == 'job_seeker' %} 
-
+              {% if profile.user_type == 'job_seeker' %}
                   <div class="author-resume">
                     <div class="thumb">
                       <img src="media/{{profile.profile_picture}}" alt="">
@@ -142,9 +136,8 @@
                       <h3>{{ resume.name }}</h3>
                       <p class="sub-title">{{ resume.profession_title}}</p>
                       <p><span class="address"><i class="lni-map-marker"></i>{{resume.location}}</span></p>
-                      <p><span class="email"><i class="lni-envelope"></i> {{resume.email}}</p>
-
-                      <div class="social-link">  
+                      <p><span class="email"><i class="lni-envelope"></i> {{resume.email}} </p>
+                      <div class="social-link">
                         <a href="#" class="Twitter"><i class="lni-twitter-filled"></i></a>
                         <a href="#" class="facebook"><i class="lni-facebook-filled"></i></a>
                         <a href="#" class="google"><i class="lni-google-plus"></i></a>
@@ -166,7 +159,6 @@
                       <br>
                     {% endfor %}
                   </div>
-
                   <div class="education item">
                     <h3>Education</h3>
                     {% for c in edu_xp %}
@@ -174,113 +166,86 @@
                       <p>{{c.degree}} of {{ c.field_of_study}}</p>
                       <span class="date">{{c.start_year}}-{{c.end_year}}</span>
                       <br>
-                  
                     {% endfor %}
-                  
                   </div>
-
                   <div class="skills item">
                     <h3>Skills</h3>
                     {% for c in skills %}
                       <h4>{{c.skill_name}} - {{c.proficiency}}%</h4>
                     {% endfor %}
                   </div>
-                  
-              {% else %} 
-              
-                  <div class="post-job box">
-                    <h3 class="job-title">Post a new Job</h3>
-                    {% if messages %}
-                      <div class="alert-container">
-                          {% for message in messages %}
-                              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
-                                  {{ message }}
-                              </div>
-                          {% endfor %}
-                      </div>
-                    {% endif %}
-                    <form class="form-ad" method="POST" action="{% url 'add_job' %}" enctype="multipart/form-data">
-                      {% csrf_token %}
-                      <div class="form-group">
-                        <label class="control-label">Job Title</label>
-                        {{ form.title }}
-                        {% comment %} <input type="text" class="form-control" placeholder="Write job title" > {% endcomment %}
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label">Company</label>
-                        {{ form.company_name}}
-                        {% comment %} <input type="text" class="form-control" placeholder="Write company name"> {% endcomment %}
-                      </div> 
-                      <div class="form-group">
-                        <label class="control-label">Location</label>
-                        {{ form.location }}
-                        {% comment %} <input type="text" class="form-control" placeholder="e.g.London"> {% endcomment %}
-                      </div> 
+              {% else %}
 
-                      <div class="form-group">
-                        <label class="control-label">Salary</label>
-                        {{ form.salary }}
-                        {% comment %} <input type="text" class="form-control" placeholder="e.g.London"> {% endcomment %}
-                      </div> 
-
-                      <div class="form-group">
-                        <label class="control-label">Category</label>
-                        <div class="search-category-container">
-                          <label class="styled-select">
-                            {{form.category}}
-                          </label>
+        <!--  #######################  Page content  ############################-->
+                <div class="post-job box">
+                    <h3 class="job-title">My Profile Information</h3>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 bio-row">
+                            <p><strong>First Name:</strong> Camila</p>
+                          </div>
+                          <div class="col-md-6 bio-row">
+                            <p><strong>Last Name:</strong> Smith</p>
+                          </div>
+                          <div class="col-md-6 bio-row">
+                            <p><strong>Country:</strong> Australia</p>
+                          </div>
+                          <div class="col-md-6 bio-row">
+                            <p><strong>Birthday:</strong> 13 July 1983</p>
+                          </div>
+                          <div class="col-md-6 bio-row">
+                            <p><strong>Occupation:</strong> UI Designer</p>
+                          </div>
+                          <div class="col-md-6 bio-row">
+                            <p><strong>Email:</strong> jsmith@flatlab.com</p>
+                          </div>
+                          <div class="col-md-6 bio-row">
+                            <p><strong>Mobile:</strong> (12) 03 4567890</p>
+                          </div>
+                          <div class="col-md-6 bio-row">
+                            <p><strong>Phone:</strong> 88 (02) 123456</p>
+                          </div>
                         </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label">Required skills</label>
-                        {{form.skills_required}}
-
-                        {% comment %} <input type="text" class="form-control" placeholder="e.g.PHP,Social Media,Management"> {% endcomment %}
-                        <p class="note">Comma separate tags, such as required skills or technologies, for this job.</p>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label">Job Tags</label>
-                        {{form.job_tag }}
-
-                        {% comment %} <input type="text" class="form-control" placeholder="e.g.PHP,Social Media,Management"> {% endcomment %}
-                        <p class="note">Comma separate tags for this job.</p>
-                      </div>  
-
-                      <section id="editor">
-                        <div class="form-group">
-                        <label for="comment">Description</label>
-                        {{ form.description }}
-                        {% comment %} <textarea class="form-control" rows="5" id="comment"></textarea> {% endcomment %}
-                      </div>
-                      </section>
-                  
-                      <div class="form-group">
-                        <label class="control-label">Job Type</label>
-                        {{ form.job_type}}
-                        {% comment %} <input type="text" class="form-control" placeholder="Enter the name of the company"> {% endcomment %}
-                      </div> 
-                      
-                      <div class="custom-file mb-3">
-                        {{ form.cover_img }}
-                        {% comment %} <input type="file" class="custom-file-input" id="validatedCustomFile" required> {% endcomment %}
-                        {% comment %} <label class="custom-file-label form-control" for="validatedCustomFile">Choose file...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div> {% endcomment %}
-                      </div>
-                      <input type="submit" class="btn btn-common" value="Post Job">
-                    </form>
-                  </div>
+                    </div>
                 </div>
-              </div>
-                  
-
+<!--              </div>-->
               {% endif %}
-              
 
+
+<!--                <div class="container">-->
+                    <div class="profile-content post-job box">
+                        <br><br>
+                        <h3 class="job-title text-center">Recent Activities</h3>
+                        <div class="tab-pane fade active show" id="profile-post">
+                            <ul class="timeline">
+                                {% for activity in activities %}
+                                <li class="timeline-item">
+                                    <div class="timeline-time">
+                                        <span class="date">{{ activity.timestamp|date:"F d, Y" }}</span>
+                                        <span class="time">{{ activity.timestamp|time:"H:i" }}</span>
+                                    </div>
+                                    <div class="timeline-icon">
+                                        <a href="javascript:;">&nbsp;</a>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <div class="timeline-content">
+                                            <p>{{ activity.action }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% empty %}
+                                <li class="timeline-item">
+                                    <div class="timeline-body text-center">
+                                        <p>No recent activities found.</p>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
-        </div>
       </div>      
     </div>
     <!-- End Content -->
